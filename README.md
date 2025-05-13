@@ -12,21 +12,13 @@ Follow these steps to install the necessary dependencies for the project.
 
    `git clone https://github.com/ayaoVA02/iater-website.git`
 
-bash```
 
- 
-  ```npm install```
+`npm install`
 
+`npm run dev:client` 
 
+"for client development "
 
-
-  ```npm run dev:client``` 
-
-
-for client development
-
-
-  ```npm run dev:server``` 
-
+`npm run dev:server` 
 
 "for server or backend development"
