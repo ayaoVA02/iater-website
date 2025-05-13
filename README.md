@@ -8,17 +8,19 @@ This is a web project built with React, Express, Tailwind CSS, and Vite. It incl
 Follow these steps to install the necessary dependencies for the project.
 
 1. Clone this repository to your local machine:
-  ```bash
+```bash
+git clone https://github.com/ayaoVA02/iater-website.git
 
-   `git clone https://github.com/ayaoVA02/iater-website.git`
+
+```bash 
+npm install
+
+```bash 
+npm run dev:client 
 
 
-`npm install`
+```bash
+npm run dev:server
 
-`npm run dev:client` 
-
-"for client development "
-
-`npm run dev:server` 
-
-"for server or backend development"
+```bash
+npm run dev
