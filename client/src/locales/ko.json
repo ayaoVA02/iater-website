@@ -1,0 +1,45 @@
+{
+    "home": {
+        "iATER_trains": "iATER는 라오스에서 AI & IT 인재를 양성합니다",
+        "title": "iATER 소개",
+        "intoduc_subtitle": "iATER을 소개합니다",
+        "aboutMenuItems1": "Vision (iATER 소개)",
+        "aboutMenuItems2": "Mission (설립목적)",
+        "aboutMenuItems3": "Mission Statement",
+        "aboutMenuItems4": "조직도 (조직운영)",
+        "aboutMenuItems5": "함께하는 이들",
+        "aboutMenuItems6": "주요연혁",
+        "aboutMenuItems7": "BI (iATER logo)",
+        "project": "프로젝트",
+        "project_subtitle": "iATER는 연구를 합니다",
+        "projectMenuItems1": "외부 프로젝트",
+        "projectMenuItems2": "내부 활동",
+        "projectMenuItems3": "연구 활동",
+        "program": "프로그램",
+        "program_subtitle": "iATER는 배움이 있습니다",
+        "programMenuItems1": "계획",
+        "programMenuItems2": "iATER 교육 과정",
+        "programMenuItems3": "기관연합계획",
+        "programMenuItems4": "사명 선언문"
+    },
+    "banner": {
+        "title": "고등기술교육연구소",
+        "description": "AI에 대한 지식이 없더라도 누구나 AI를 활용할 수 있는 시대가 올 것입니다. [바탈리 고든-파로스 AI / 공동 창립자 겸 CEO]"
+    },
+    "footer": {
+        "contact": "연락하다",
+        "address": "주소"
+    },
+    "about": {
+        "1_p1": "세상은 지금, <strong> 인공지능(AI)이 이끄는 혁신의 시대</strong>를 맞이하고 있습니다. ",
+        "1_p2": "이러한 변화의 파도 속에서, <strong>첨단 IT 기술을 활용하여 미래를 모색하고, 데이터를 혁신적으로 활용하는 능력 </strong>, 그리고 <strong> IT 관리에 있어 창의적인 사고</strong>는 더욱 중요해지고 있습니다.",
+        "1_p3": "2020년 10월, 라오스의 미래를 위해 태어난 iATER는 인공지능의 무한한 가능성을 탐구하며, 이 분야의 글로벌 리더가 되고자 하는 사명을 가지고 있습니다. ",
+        "1_p4": "빅데이터, 사물인터넷(IoT), 스마트 센서와 함께, AI는 우리의 연구와 교육의 핵심을 이루며, 이를 통해 4차 산업혁명을 선도할 전문 인재를 양성하고 있습니다. ",
+        "1_p5": "오늘날, IT는 모든 분야에서 선택이 아닌 필수가 되었으며, 특히 인공지능은 미래 사회를 형성하는 데 있어 가장 중추적인 역할을 할 것입니다."
+    },
+    "nav": {
+        "home": "홈",
+        "about": "소개",
+        "contact": "연락처"
+    }
+}

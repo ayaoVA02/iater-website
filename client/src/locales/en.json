@@ -1,0 +1,45 @@
+{
+  "home": {
+    "iATER_trains": "iATER trains AI & IT talents in Laos",
+    "title": "About iATER",
+    "intoduc_subtitle": "Introducing iATER",
+    "aboutMenuItems1": "Vision (Introduction of iATER)",
+    "aboutMenuItems2": "Mission (Purpose of establishment)",
+    "aboutMenuItems3": "Mission Statement",
+    "aboutMenuItems4": "Organizational chart (Organizational operation)",
+    "aboutMenuItems5": "Those involved",
+    "aboutMenuItems6": "Major history",
+    "aboutMenuItems7": "BI (iATER logo)",
+    "project": "PROJECT",
+    "project_subtitle": "iATER does research",
+    "projectMenuItems1": "External Project",
+    "projectMenuItems2": "Internal Activities",
+    "projectMenuItems3": "Research Activities",
+    "program": "PROGRAM",
+    "program_subtitle": "iATER learning",
+    "programMenuItems1": "Plan",
+    "programMenuItems2": "iATER Curriculum",
+    "programMenuItems3": "Institutional Linkage Plan",
+    "programMenuItems4": "Mission Statement"
+  },
+  "banner": {
+    "title": "Institute of Advanced  Technology Education & Research",
+    "description": "The era will come when anyone can use AI, even if they do not know the technology. [Bartali Gordon-Pharos AI /co-founder and CEO]"
+  },
+  "footer": {
+    "contact": "Contact",
+    "address": "Address"
+  },
+  "about": {
+    "1_p1": "The world is now entering an <strong> era of innovation led by artificial intelligence (AI). </strong>",
+    "1_p2":"In this wave of change, the ability to <strong>explore the future using cutting-edge IT technologies, utilize data innovatively</strong>, and <strong>think creatively in IT management</strong> are becoming more important.",
+    "1_p3":"Born in October 2020 for the future of Laos, iATER has a mission to explore the infinite possibilities of artificial intelligence and become a global leader in this field.",
+    "1_p4":"Along with big data, the Internet of Things (IoT), and smart sensors, AI is at the core of our research and education, fostering expert talents who will lead the Fourth Industrial Revolution.",
+    "1_p5":"Today, IT has become a necessity rather than an option in all fields, and artificial intelligence in particular will play the most pivotal role in shaping the future society."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  }
+}
