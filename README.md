@@ -12,15 +12,14 @@ Follow these steps to install the necessary dependencies for the project.
 git clone https://github.com/ayaoVA02/iater-website.git
 
 
-```bash 
+
 npm install
 
-```bash 
+
 npm run dev:client 
 
 
-```bash
 npm run dev:server
 
-```bash
+
 npm run dev
