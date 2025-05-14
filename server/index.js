@@ -1,16 +1,16 @@
-// app.js
+
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
-const db = require("./models");
+const db = require("./src/models");
 const cors = require("cors");
 
-const authRoutes = require("./routes/authRoutes");
-const postRoutes = require("./routes/postRoutes");
-const userRoutes = require("./routes/userRoutes");
-const swagger = require("./swagger/swagger");
-const PORT = process.env.PORT || 3000;
+const authRoutes = require("./src/routes/authRoutes");
+const postRoutes = require("./src/routes/postRoutes");
+const userRoutes = require("./src/routes/userRoutes");
+const swagger = require("./src/swagger/swagger");
+const PORT = process.env.PORT;
 
 const corsOptions = {
   origin: ['http://localhost:3000'], // Add allowed client URLs
@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/user", userRoutes)
 
 
 swagger(app);
