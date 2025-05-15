@@ -21,7 +21,9 @@ const auth = require("../controllers/authController");
  *         application/json:
  *           schema:
  *             type: object
- *             required: [email, password]
+ *             required:
+ *               - email
+ *               - password
  *             properties:
  *               email:
  *                 type: string
@@ -31,8 +33,8 @@ const auth = require("../controllers/authController");
  *                 example: secret123
  *               role:
  *                 type: string
- *                 enum: [ADMIN, USER]  # Added USER role as example, you may adjust based on your needs
- *                 example: USER
+ *                 enum: [ADMIN]
+ *                 example: ADMIN
  *     responses:
  *       201:
  *         description: User created successfully
@@ -55,7 +57,9 @@ router.post("/register", auth.register);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [email, password]
+ *             required:
+ *               - email
+ *               - password
  *             properties:
  *               email:
  *                 type: string
