@@ -25,7 +25,7 @@ export default function Home() {
         </div>
 
         <div className="col-span-12">
-          <StatisticsChart />
+          {/* <StatisticsChart /> */}
         </div>
 
         <div className="col-span-12 xl:col-span-5">

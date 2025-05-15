@@ -56,10 +56,11 @@ function App() {
           <Route path="/basic-tables" element={<BasicTables />} />
 
           {/* Auth Layout */}
+          {/* <Route path="**" element={<NotFound />} /> */}
 
           <Route path="/signup" element={<SignUp />} />
         </Route>
-          <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
