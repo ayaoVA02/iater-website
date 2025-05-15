@@ -32,14 +32,34 @@
   },
   "about": {
     "1_p1": "The world is now entering an <strong> era of innovation led by artificial intelligence (AI). </strong>",
-    "1_p2":"In this wave of change, the ability to <strong>explore the future using cutting-edge IT technologies, utilize data innovatively</strong>, and <strong>think creatively in IT management</strong> are becoming more important.",
-    "1_p3":"Born in October 2020 for the future of Laos, iATER has a mission to explore the infinite possibilities of artificial intelligence and become a global leader in this field.",
-    "1_p4":"Along with big data, the Internet of Things (IoT), and smart sensors, AI is at the core of our research and education, fostering expert talents who will lead the Fourth Industrial Revolution.",
-    "1_p5":"Today, IT has become a necessity rather than an option in all fields, and artificial intelligence in particular will play the most pivotal role in shaping the future society."
+    "1_p2": "In this wave of change, the ability to <strong>explore the future using cutting-edge IT technologies, utilize data innovatively</strong>, and <strong>think creatively in IT management</strong> are becoming more important.",
+    "1_p3": "Born in October 2020 for the future of Laos, iATER has a mission to explore the infinite possibilities of artificial intelligence and become a global leader in this field.",
+    "1_p4": "Along with big data, the Internet of Things (IoT), and smart sensors, AI is at the core of our research and education, fostering expert talents who will lead the Fourth Industrial Revolution.",
+    "1_p5": "Today, IT has become a necessity rather than an option in all fields, and artificial intelligence in particular will play the most pivotal role in shaping the future society.",
+    "2_p1": "In a rapidly changing global environment, Laotian youth are developing capable professionals.",
+    "2_p2": "By implementing computer education throughout Laos, we are eliminating the technology gap and popularizing ICT.",
+    "2_p3": "We aim to establish a research institute that helps people become self-reliant through training professional developers and developing instructors.",
+    "3_p1": "AI professional talent training",
+    "3_p2": "Research and Development (R&D) <br/> and Innovative Technology Research",
+    "3_p3": "Ai + 창의산업 ",
+    "history": "History"
   },
-  "nav": {
-    "home": "Home",
-    "about": "About",
-    "contact": "Contact"
+  "history": {
+    "2020_line1": "2018 04 01 Lao-Korean College [President: Dr. Jong-Beom Lee] Organization CPDC (Computer Program Development Center)",
+    "2020_line2": "2019 02 05 Securing a research lab within Lao-Korean College",
+    "2020_line3": "2020 10 08 Launch of iATER, a research institute under Lao-Korean College",
+    "2023_line1": "2023 1 23 Presentation skills and RFP writing, planning special lecture [C&Is Com, Planning Director Kim Chang-ho]",
+    "2023_line2": "2023 07 27 Demonstration presentation of Logos University academic management system",
+    "2023_line3": "2023 08 07 ~10 Dispatch of main lecturer for IT CAMP for youth (Berkeo Dream School)",
+    "2023_line4": "2023 09 05. Dispatch of web programmer to Laos branch of Humascott Inc.",
+    "2024_line1": "2024 01 15~17 AI application service utilization [Professor Lee Sang-sik]",
+    "2024_line2": "2024 2 12~16 Web front-end development special lecture [Team Leader Choi Nak-hyun et al. 1]",
+    "2024_line3": "2024 2 25~29 Seminar on V2X communication and multi-domain service for autonomous driving [Electronics and Telecommunications Research Institute (ETRI) Dr. Oh Hyun-seo et al. 1)]",
+    "2024_line4": "2024 06 07 iATER Research Institute business registration",
+    "2024_line5": "2024 07 01 ~ 25.1 Project cooperation with U:companion Group U:learn up",
+    "2024_line6": "2024 09 Support for lectures in Computer IT Department, College of Engineering, National University of Laos (NUOL) [AI, AIoT field]",
+    "2025_line1": "2025 02 16~21 Joint project promotion of Shinhan University & National University of Laos (AI app)",
+    "2025_line2": "2025 03 07 Collaborative research institute of Computer IT Department, College of Engineering, National University of Laos (Research and education curriculum development in AI, AIoT field)",
+    "2025_line3": "2025 04 01 ~ Dispatch of IICT University S/W field [Web, App, AI] instructor (NIPA supported 2-year project)"
   }
 }

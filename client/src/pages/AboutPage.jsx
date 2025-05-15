@@ -21,14 +21,17 @@ const AboutPage = () => {
     navigate('/history');
   };
 
+  function truncateWords(text, count) {
+    const words = text.split(' ');
+    return words.length <= count ? text : words.slice(0, count).join(' ') + '...';
+  }
 
 
-
-  const fontClass = {
+ const fontClass = {
     en: "font-en",
     la: "font-lao",
     ko: "font-kr",
-  }[i18n.language];
+  }[i18n.language]; 
   return (
     <div className={`bg-white ${fontClass}`}>
       <div className="container mx-auto px-4 py-6">
@@ -62,17 +65,19 @@ const AboutPage = () => {
 
           <div className="mt-14">
             <h2 className="text-lg font-bold mb-4">2. {t("home.aboutMenuItems2")}</h2>
-            <p className="mb-4">글로벌한 문화를 향한 교육서 리서치 연구센터 목적으로 국제 인재를 키우고</p>
-            <p className="mb-4">국가적 연구적 협력을 고통을 실천 현장중심 기술자가 되도록 ICT 인재들을 이루고</p>
-            <p className="mb-8">연간 1명의 박사와 3년 기술을 통한 성공 기술을 통는 연구센터 설립되었다 함</p>
+            <p className="mb-4"> <Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.2_p1")}</Trans>
+            </p>
+            <p className="mb-4">
+              <Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.2_p2")}</Trans></p>
+            <p className="mb-8 lg:w-[60%]"><Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.2_p3")}</Trans></p>
 
 
           </div>
 
           <div id="mission-statement">
             <h2 className="text-lg font-bold mb-4" >3. {t("home.aboutMenuItems3")}</h2>
-            <div className="flex justify-around mt-12">
-              <div className="text-center">
+            <div className="flex justify-around mt-12 ">
+              <div className="text-center w-[20%]">
                 <Link to={'/aieducation'} >
                   <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
                     <svg viewBox="0 0 24 24" className="w-full h-full">
@@ -80,11 +85,16 @@ const AboutPage = () => {
                       <path d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8" fill="none" stroke="currentColor" strokeWidth="2" />
                     </svg>
                   </div>
-                  <p className="text-xs hover:underline">사·인재 양성센터</p>
+                  <p className="text-xs hover:underline block sm:hidden">
+                    {truncateWords(t("about.3_p1"), 3)}
+                  </p>
+                  <p className="text-xs hover:underline hidden sm:block">
+                    {t("about.3_p1")}
+                  </p>
                 </Link>
               </div>
-              <div className="text-center">
-                <Link to={'/aieducation'} >
+              <div className="text-center w-[20%]">
+                <Link to={'/aieducation'}  >
 
                   <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
                     <svg viewBox="0 0 24 24" className="w-full h-full">
@@ -93,13 +103,27 @@ const AboutPage = () => {
                       <rect x="10" y="10" width="4" height="4" fill="none" stroke="currentColor" strokeWidth="2" />
                     </svg>
                   </div>
-                  <p className="text-xs hover:underline">
-                    연구·개발센터 및<br />
-                    제품 기술 연구
+                  <p className="text-xs hover:underline  block sm:hidden">
+                    <Trans
+                      i18nKey={`${truncateWords(t("about.3_p2"),3 )}`}
+                      components={{
+                        strong: <strong className="font-bold" />,
+                        br: <br />
+                      }}
+                    />
+                  </p>
+                  <p className="text-xs hover:underline hidden sm:block">
+                    <Trans
+                      i18nKey="about.3_p2"
+                      components={{
+                        strong: <strong className="font-bold" />,
+                        br: <br />
+                      }}
+                    />
                   </p>
                 </Link>
               </div>
-              <div className="text-center">
+              <div className="text-center w-[20%]">
                 <Link to={'/aieducation'} >
 
                   <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
@@ -114,7 +138,7 @@ const AboutPage = () => {
                       />
                     </svg>
                   </div>
-                  <p className="text-xs hover:underline">AI·정보화센터</p>
+                  <p className="text-xs hover:underline">{t("about.3_p3")}</p>
                 </Link>
               </div>
             </div>
@@ -202,8 +226,8 @@ const AboutPage = () => {
             </div>
 
             <div className="flex space-x-4 w-full max-sm:justify-center">
-              <Link to={"/people"} className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">함께 하는 이들</Link>
-              <button onClick={gotoHistory} className="bg-white border border-gray-300  py-2 rounded cursor-pointer px-12">History</button>
+              <Link to={"/people"} className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer w-38 text-center">{t("home.aboutMenuItems5")}</Link>
+              <button onClick={gotoHistory} className="bg-white border border-gray-300  py-2 rounded cursor-pointer px-12">{t("about.history")}</button>
             </div>
           </div>
         </div>
