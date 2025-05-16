@@ -5,14 +5,21 @@ import Logo from "../components/Logo"
 import LanguageSelector from "../components/LanguageSelector"
 import { im4, im5, im6, im7, im8, im9 } from "../assets/images"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next";
+
 const ProjectPage = () => {
   const [activeTab, setActiveTab] = useState("external")
-
+ const { t, i18n } = useTranslation();
   const tabs = [
-    { id: "external", name: "External activities", color: "bg-blue-500" },
-    { id: "internal", name: "Internal activities", color: "bg-orange-500" },
-    { id: "research", name: "Research activities", color: "bg-green-500" },
+    { id: "external", name: `${t("home.projectMenuItems1")}`, color: "bg-blue-500" },
+    { id: "internal", name: `${t("home.projectMenuItems2")}`, color: "bg-orange-500" },
+    { id: "research", name: `${t("home.projectMenuItems3")}`, color: "bg-green-500" },
   ]
+ const fontClass = {
+    en: "font-en",
+    la: "font-lao",
+    ko: "font-kr",
+  }[i18n.language];
 
   const projects = [
     {
@@ -133,20 +140,20 @@ const ProjectPage = () => {
   const filteredProjects = projects.filter((project) => project.tab === activeTab)
 
   return (
-    <div className="bg-white">
+    <div className={`bg-white ${fontClass}`}>
       <div className="container mx-auto px-4 py-6">
         <div className="flex justify-between items-center mb-8">
           <Logo />
           <LanguageSelector />
         </div>
 
-        <h1 className="text-center text-xl mb-6">iATER는 연구를 합니다</h1>
-
-        <div className="flex mb-6">
+        <h1 className="text-center text-xl mb-6">{t("home.project_subtitle")}</h1>
+<br /><br />
+        <div className="flex mb-6 ">
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              className={`px-4 cursor-pointer py-2 ${tab.color} text-white ${activeTab === tab.id ? "font-bold" : "opacity-80"}`}
+              className={`px-4 cursor-pointer w-42 py-2 ${tab.color} text-white ${activeTab === tab.id ? "font-bold" : "opacity-80"}`}
               onClick={() => setActiveTab(tab.id)}
             >
               {tab.name}

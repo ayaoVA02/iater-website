@@ -9,12 +9,26 @@ import HistoryPage from "./pages/HistoryPage"
 import AIEducationTabs from "./pages/AIEducationTabs"
 import BlogPostDetail from "./pages/BlogPostDetail"
 
+
+// dashboard manages import
+import Home from "./dashboard/pages/Dashboard/Home";
+import SignIn from "./AuthPages/SignIn";
+import SignUp from "./AuthPages/SignUp";
+import NotFound from "./dashboard/pages/OtherPage/NotFound";
+import UserProfiles from "./dashboard/pages/UserProfiles";
+import Calendar from "./dashboard/pages/Calendar";
+import BasicTables from "./dashboard/pages/Tables/BasicTables";
+import FormElements from "./dashboard/pages/Forms/FormElements";
+import AppLayout from "./dashboard/layout/AppLayout";
+import { ScrollToTop } from "./dashboard/components/common/ScrollToTop";
+
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage/>} />
+          <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="project" element={<ProjectPage />} />
           <Route path="program" element={<ProgramPage />} />
@@ -23,6 +37,32 @@ function App() {
           <Route path="aieducation" element={<AIEducationTabs />} />
           <Route path="projectDetail/:id" element={<BlogPostDetail />} />
         </Route>
+
+
+        {/* Dashboard */}
+
+        <Route element={<AppLayout />}>
+
+          <Route index path="/dashboard" element={<Home />} />
+
+          {/* Others Page */}
+          <Route path="/profile" element={<UserProfiles />} />
+          <Route path="/calendar" element={<Calendar />} />
+
+          {/* Forms */}
+          <Route path="/form-elements" element={<FormElements />} />
+
+          {/* Tables */}
+          <Route path="/basic-tables" element={<BasicTables />} />
+
+          {/* Auth Layout */}
+          {/* <Route path="**" element={<NotFound />} /> */}
+
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
+        <Route path="/signin" element={<SignIn />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   )
