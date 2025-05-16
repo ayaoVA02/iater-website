@@ -10,10 +10,10 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD_LENGTH = 6;
 
 exports.register = async (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password, role,name } = req.body;
 
   // Check required fields
-  if (!email || !password) {
+  if (!email || !password || !name) {
     return res.status(400).json({ error: "Email and password are required" });
   }
 
@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, password: hashedPassword, role });
+    const user = await User.create({ email, password: hashedPassword, role ,name});
 
     res.status(201).json({ message: "User registered", userId: user.id });
   } catch (err) {

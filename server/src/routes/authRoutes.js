@@ -28,6 +28,9 @@ const auth = require("../controllers/authController");
  *               email:
  *                 type: string
  *                 example: admin@example.com
+ *               name:
+ *                 type: string
+ *                 example: username
  *               password:
  *                 type: string
  *                 example: secret123
