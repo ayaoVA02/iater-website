@@ -124,6 +124,6 @@ router.delete("/:id", authMiddleware, roleMiddleware("ADMIN"), post.delete);
  *             schema:
  *           
  */
-router.get("/", authMiddleware, post.select);
+router.get("/", post.select);
 
 module.exports = router;
