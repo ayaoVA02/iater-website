@@ -37,7 +37,7 @@ const roleMiddleware = require("../middleware/roleMiddleware");
 *              types:
 *                type: string
 *                enum: [EXTERNAL, INTERNAL_ACTIVITY, RESEARCH]
-*              image:
+*              images:
 *                type: string
 *              user_id:
 *                type: integer
@@ -78,7 +78,7 @@ router.post("/", authMiddleware, roleMiddleware("ADMIN"), post.create);
  *               types:
  *                 type: string
  *                 enum: [EXTERNAL, INTERNAL_ACTIVITY, RESEARCH]
- *               image:
+ *               images:
  *                 type: string
  *                 description: URL or path to the image
  *     responses:
@@ -122,26 +122,7 @@ router.delete("/:id", authMiddleware, roleMiddleware("ADMIN"), post.delete);
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   title:
- *                     type: string
- *                   content:
- *                     type: string
- *                   viewer:
- *                     type: integer
- *                   types:
- *                     type: string
- *                   image:
- *                     type: string
- *                   createdAt:
- *                     type: string
- *                   updatedAt:
- *                     type: string
+ *           
  */
 router.get("/", authMiddleware, post.select);
 
