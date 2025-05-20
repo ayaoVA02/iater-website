@@ -1,105 +1,102 @@
 const db = require("../models");
+const fs = require("fs");
+const path = require("path");
 const Post = db.Post;
-
-// Helper to check non-empty string
 const isNonEmptyString = (val) => typeof val === "string" && val.trim() !== "";
-
-// Helper to check non-negative integer
 const isNonNegativeInteger = (val) => Number.isInteger(val) && val >= 0;
 
-exports.create = async (req, res) => {
-  const { title, content, types, images, user_id } = req.body;
-  const viewer = req.body.viewer || 0;
-
-  // Validation
-  if (!isNonEmptyString(title) || !isNonEmptyString(content) || !isNonEmptyString(types) || !user_id) {
-    return res.status(400).json({
-      error: "Fields 'title', 'content', 'types', and 'user_id' are required and must be valid.",
-    });
-  }
-
-  if (!isNonNegativeInteger(viewer)) {
-    return res.status(400).json({ error: "'viewer' must be a non-negative integer." });
-  }
-
-  if (images !== undefined && typeof images !== "string") {
-    return res.status(400).json({ error: "'image' must be a string if provided." });
-  }
-
-  try {
-    const post = await Post.create({ title, content, viewer, types, images, user_id });
-    return res.status(201).json(post);
-  } catch (err) {
-    console.error("Create Error:", err);
-    return res.status(500).json({ error: err.message });
+// Helper to delete file safely
+const deleteFile = (filePath) => {
+  if (filePath && fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
   }
 };
 
-exports.edit = async (req, res) => {
-  const { title, content, viewer, types, images } = req.body;
-  const { id } = req.params;
+exports.create = async (req, res) => {
+  const { title, content, types, user_id, viewer } = req.body;
+  const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
 
-  // At least one field to update should be present
-  if (
-    title === undefined &&
-    content === undefined &&
-    viewer === undefined &&
-    types === undefined &&
-    images === undefined
-  ) {
-    return res.status(400).json({ error: "At least one field must be provided to update." });
+  if (!isNonEmptyString(title) || !isNonEmptyString(content) || !user_id) {
+    return res.status(400).json({ error: "title, content, and user_id are required." });
   }
 
-  // Validate each if provided
-  if (title !== undefined && !isNonEmptyString(title)) {
-    return res.status(400).json({ error: "'title' must be a non-empty string." });
-  }
-  if (content !== undefined && !isNonEmptyString(content)) {
-    return res.status(400).json({ error: "'content' must be a non-empty string." });
-  }
-  if (types !== undefined && !isNonEmptyString(types)) {
-    return res.status(400).json({ error: "'types' must be a non-empty string." });
-  }
-  if (viewer !== undefined && !isNonNegativeInteger(viewer)) {
-    return res.status(400).json({ error: "'viewer' must be a non-negative integer." });
-  }
-  if (images !== undefined && typeof images !== "string") {
-    return res.status(400).json({ error: "'image' must be a string." });
+  if (viewer !== undefined && !isNonNegativeInteger(Number(viewer))) {
+    return res.status(400).json({ error: "viewer must be a non-negative integer." });
   }
 
   try {
-    const post = await Post.findByPk(id);
+    const post = await Post.create({
+      title,
+      content,
+      user_id,
+      viewer: Number(viewer) || 0,
+      types,
+      images: imagePath,
+    });
+    res.status(201).json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getAll = async (_req, res) => {
+  try {
+    const posts = await Post.findAll();
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getById = async (req, res) => {
+  try {
+    const post = await Post.findByPk(req.params.id);
+    if (!post) return res.status(404).json({ error: "Post not found" });
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const post = await Post.findByPk(req.params.id);
     if (!post) return res.status(404).json({ error: "Post not found" });
 
-    await post.update({ title, content, viewer, types, images });
-    return res.json({ message: "Post updated successfully", post });
+    const { title, content, viewer, user_id, types } = req.body;
+
+    // If a new image is uploaded, delete the old one
+    if (req.file && post.images && fs.existsSync(post.images)) {
+      deleteFile(post.images);
+    }
+
+    const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : post.images;
+
+    if (title && isNonEmptyString(title)) post.title = title;
+    if (content && isNonEmptyString(content)) post.content = content;
+    if (viewer !== undefined && isNonNegativeInteger(Number(viewer))) post.viewer = Number(viewer);
+    if (user_id) post.user_id = user_id;
+    if (types) post.types = types;
+    post.images = imagePath;
+
+    await post.save();
+    res.json(post);
   } catch (err) {
-    console.error("Edit Error:", err);
-    return res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 
 exports.delete = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const post = await Post.findByPk(id);
+    const post = await Post.findByPk(req.params.id);
     if (!post) return res.status(404).json({ error: "Post not found" });
 
-    await post.destroy();
-    return res.json({ message: "Post deleted successfully" });
-  } catch (err) {
-    console.error("Delete Error:", err);
-    return res.status(500).json({ error: err.message });
-  }
-};
+    // Delete image from filesystem if exists
+    deleteFile(post.images);
 
-exports.select = async (_req, res) => {
-  try {
-    const posts = await Post.findAll();
-    return res.json(posts);
+    await post.destroy();
+    res.json({ message: "Post and associated image deleted" });
   } catch (err) {
-    console.error("Fetch Error:", err);
-    return res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };

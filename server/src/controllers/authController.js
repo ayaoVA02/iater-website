@@ -3,18 +3,16 @@ const jwt = require("jsonwebtoken");
 const db = require("../models");
 const User = db.User;
 
-// Simple email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// Password minimum length
 const MIN_PASSWORD_LENGTH = 6;
 
+// ✅ REGISTER
 exports.register = async (req, res) => {
-  const { email, password, role,name } = req.body;
+  const { email, password, name, role } = req.body;
 
   // Check required fields
   if (!email || !password || !name) {
-    return res.status(400).json({ error: "Email and password are required" });
+    return res.status(400).json({ error: "Email, password, and name are required" });
   }
 
   // Validate email format
@@ -24,65 +22,72 @@ exports.register = async (req, res) => {
 
   // Validate password length
   if (password.length < MIN_PASSWORD_LENGTH) {
-    return res
-      .status(400)
-      .json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+    return res.status(400).json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
   }
 
-  // Optional: Validate role only ADMIN allowed
+  // Optional: Validate role (if present)
   if (role && role !== "ADMIN") {
-    return res.status(400).json({ error: "Invalid role value" });
+    return res.status(400).json({ error: "Invalid role value. Only 'ADMIN' allowed." });
   }
 
   try {
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(400).json({ error: "User already exists with this email" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, password: hashedPassword, role ,name});
 
-    res.status(201).json({ message: "User registered", userId: user.id });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+      name,
+      role: role || "ADMIN", // default if not provided
+    });
+
+    return res.status(201).json({ message: "User registered successfully", userId: newUser.id });
+  } catch (error) {
+    console.error("Register Error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
+// ✅ LOGIN
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
-  // Check required fields
+  // Validate input
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required" });
   }
 
-  // Validate email format
   if (!emailRegex.test(email)) {
     return res.status(400).json({ error: "Invalid email format" });
   }
 
-  // Validate password length
-  if (password.length < MIN_PASSWORD_LENGTH) {
-    return res
-      .status(400)
-      .json({ error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters` });
-  }
-
   try {
     const user = await User.findOne({ where: { email } });
+
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const token = jwt.sign(
-      { userId: user.id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const payload = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    };
 
-    res.json({ message: "Login successful", token });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+    return res.status(200).json({
+      message: "Login successful",
+      token,
+      user: payload, // optional: return user info
+    });
+  } catch (error) {
+    console.error("Login Error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };

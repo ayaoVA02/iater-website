@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM("EXTERNAL", "INTERNAL", "RESEARCH"),
       allowNull: false,
     },
-    images: { type: DataTypes.STRING, allowNull: false },
+    images: { type: DataTypes.STRING, allowNull: true },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

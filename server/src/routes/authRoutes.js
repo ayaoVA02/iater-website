@@ -27,13 +27,13 @@ const auth = require("../controllers/authController");
  *             properties:
  *               email:
  *                 type: string
- *                 example: admin@example.com
+ *                 example: admin@gmail.com
  *               name:
  *                 type: string
  *                 example: username
  *               password:
  *                 type: string
- *                 example: secret123
+ *                 example: admin123
  *               role:
  *                 type: string
  *                 enum: [ADMIN]
@@ -66,10 +66,10 @@ router.post("/register", auth.register);
  *             properties:
  *               email:
  *                 type: string
- *                 example: admin@example.com
+ *                 example: admin@gmail.com
  *               password:
  *                 type: string
- *                 example: secret123
+ *                 example: admin123
  *     responses:
  *       200:
  *         description: Login successful
