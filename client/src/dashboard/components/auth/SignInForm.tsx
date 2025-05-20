@@ -9,7 +9,7 @@ import { useAuth } from "../../../context/AuthProvider";
 
 export default function SignInForm() {
   const navigate = useNavigate();
-const { setToken } = useAuth();
+const { setToken ,token} = useAuth();
 
   const [email, setEmail] = useState(() => localStorage.getItem("email") || "");
   const [password, setPassword] = useState(() => localStorage.getItem("password") || "");
@@ -26,6 +26,7 @@ const { setToken } = useAuth();
     localStorage.setItem("password", password);
   }, [password]);
 
+  console.log("token",token)
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -47,9 +48,11 @@ const { setToken } = useAuth();
 
       localStorage.removeItem("email");
       localStorage.removeItem("password");
-      localStorage.setItem("access_token", data.accessToken);
+      localStorage.setItem("token", data.token);
       localStorage.setItem("refresh_token", data.refreshToken);
       setToken(response.data.token);
+      localStorage.setItem("token_created_at", Date.now().toString());
+
       navigate("/dashboard");
     } catch (err: any) {
       console.error(err);

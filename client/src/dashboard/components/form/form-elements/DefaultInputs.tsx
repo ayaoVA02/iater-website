@@ -77,7 +77,7 @@ export default function DefaultInputs() {
         title: inputValue,
         types: selectedOption.toUpperCase(), // "EXTERNAL", "INTERNAL", "RESEARCH"
         content: message,
-        images: selectedFile?.name,
+        images: `${selectedFile?.name}`,
         viewer: 0,
         user_id: userData?.userId,
       },

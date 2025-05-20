@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Button from "../ui/button/Button";
 import { useAuth } from "../../../context/AuthProvider";
 import {jwtDecode} from "jwt-decode";
@@ -20,7 +20,7 @@ export default function UserDropdown() {
 
   useEffect(() => {
     // const token = localStorage.getItem("access_token");
-    console.log("token",token);
+ 
     if (token) {
       try {
         const decoded: TokenPayload = jwtDecode(token);
@@ -31,7 +31,7 @@ export default function UserDropdown() {
     }
   }, []);
 
-  console.log("data of user",userData);
+
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -42,7 +42,7 @@ export default function UserDropdown() {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     localStorage.removeItem("refresh_token");
     setToken(null);
     navigate("/signin");
@@ -56,13 +56,13 @@ export default function UserDropdown() {
         onClick={toggleDropdown}
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
-        <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
+        <span className="mr-3 overflow-hidden rounded-full h-11 w-11 bg-purple-300 flex items-center justify-center text-white">
           {/* <img src="/images/user/owner.jpg" alt="User" /> */}
-                    {userData?.username ? getInitial(userData.username) : "?"}
+                    {userData?.name ? getInitial(userData.name) : "?"}
 
         </span>
 
-        <span className="block mr-1 font-medium text-theme-sm">{userData?.role || "Guest"}</span>
+        <span className="block mr-1 font-medium text-theme-sm">{userData?.name || "Admin"}</span>
         <svg
           className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
             }`}
@@ -88,11 +88,11 @@ export default function UserDropdown() {
         className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
       >
         <div>
-          <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-            Musharof Chowdhury
+          <span className="block font-medium  text-gray-700 text-theme-sm dark:text-gray-400">
+            {userData?.name || "Admin"}
           </span>
           <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-            randomuser@pimjo.com
+            {userData?.email}
           </span>
         </div>
 

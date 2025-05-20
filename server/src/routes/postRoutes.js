@@ -188,9 +188,6 @@ router.delete(
  *                   user_id:
  *                     type: integer
  */
-<<<<<<< HEAD
-router.get("/", post.select);
-=======
 router.get("/", postController.getAll);
 
 /**
@@ -237,6 +234,5 @@ router.use((err, req, res, next) => {
   }
   next(err);
 });
->>>>>>> d8f7b04e2a9de2309be79382a7d8d8cff8a4e336
 
 module.exports = router;

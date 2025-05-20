@@ -11,15 +11,10 @@ const postRoutes = require("./src/routes/postRoutes");
 const userRoutes = require("./src/routes/userRoutes");
 const swagger = require("./src/swagger/swagger");
 
-<<<<<<< HEAD
-const corsOptions = {
-  origin: ['http://localhost:3000','http://localhost:5173' ], // Add allowed client URLs
-=======
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: ['http://localhost:5173'],
->>>>>>> d8f7b04e2a9de2309be79382a7d8d8cff8a4e336
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
