@@ -6,10 +6,9 @@ const roleMiddleware = require("../middleware/roleMiddleware");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
-// Ensure uploads folder exists
-const uploadPath = path.join(__dirname, "../../uploads");
+const uploadPath = path.join(__dirname, "../../../client/public/uploads");
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
 }
@@ -18,8 +17,8 @@ if (!fs.existsSync(uploadPath)) {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadPath),
   filename: (req, file, cb) => {
-  cb(null, uuidv4() + path.extname(file.originalname));
-}
+    cb(null, uuidv4() + path.extname(file.originalname));
+  },
 });
 
 const upload = multer({
@@ -32,7 +31,6 @@ const upload = multer({
   },
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
-
 /**
  * @swagger
  * tags:

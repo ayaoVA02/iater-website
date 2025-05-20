@@ -6,15 +6,16 @@ const isNonEmptyString = (val) => typeof val === "string" && val.trim() !== "";
 const isNonNegativeInteger = (val) => Number.isInteger(val) && val >= 0;
 
 // Helper to delete file safely
-const deleteFile = (filePath) => {
-  if (filePath && fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
+const deleteFile = (fileName) => {
+  const fullPath = path.join(__dirname, "../../../client/public/uploads", fileName);
+  if (fileName && fs.existsSync(fullPath)) {
+    fs.unlinkSync(fullPath);
   }
 };
 
 exports.create = async (req, res) => {
   const { title, content, types, user_id, viewer } = req.body;
-  const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
+  const imageName = req.file ? req.file.filename : null;
 
   if (!isNonEmptyString(title) || !isNonEmptyString(content) || !user_id) {
     return res.status(400).json({ error: "title, content, and user_id are required." });
@@ -31,7 +32,7 @@ exports.create = async (req, res) => {
       user_id,
       viewer: Number(viewer) || 0,
       types,
-      images: imagePath,
+      images: imageName,
     });
     res.status(201).json(post);
   } catch (err) {
@@ -65,19 +66,18 @@ exports.update = async (req, res) => {
 
     const { title, content, viewer, user_id, types } = req.body;
 
-    // If a new image is uploaded, delete the old one
-    if (req.file && post.images && fs.existsSync(post.images)) {
+    if (req.file && post.images) {
       deleteFile(post.images);
     }
 
-    const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : post.images;
+    const imageName = req.file ? req.file.filename : post.images;
 
     if (title && isNonEmptyString(title)) post.title = title;
     if (content && isNonEmptyString(content)) post.content = content;
     if (viewer !== undefined && isNonNegativeInteger(Number(viewer))) post.viewer = Number(viewer);
     if (user_id) post.user_id = user_id;
     if (types) post.types = types;
-    post.images = imagePath;
+    post.images = imageName;
 
     await post.save();
     res.json(post);
@@ -91,7 +91,6 @@ exports.delete = async (req, res) => {
     const post = await Post.findByPk(req.params.id);
     if (!post) return res.status(404).json({ error: "Post not found" });
 
-    // Delete image from filesystem if exists
     deleteFile(post.images);
 
     await post.destroy();
