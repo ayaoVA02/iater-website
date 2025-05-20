@@ -13,7 +13,7 @@ const swagger = require("./src/swagger/swagger");
 const PORT = process.env.PORT;
 
 const corsOptions = {
-  origin: ['http://localhost:3000'], // Add allowed client URLs
+  origin: ['http://localhost:3000','http://localhost:5173' ], // Add allowed client URLs
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // Allow cookies

@@ -19,12 +19,15 @@ export default defineConfig({
   ],
   server: {
     host: '0.0.0.0',
-    port: process.env.PORT || 5173,
+      port: 5173, 
     allowedHosts: ['iater-web-front.onrender.com'],
     proxy: {
       '/api': 'http://localhost:5000'
     }
   },
+  // server: {
+  //   port: 5173, 
+  // },
   build: {
     outDir: '../dist',
     emptyOutDir: true

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import ComponentCard from "../../common/ComponentCard";
 import Label from "../Label";
@@ -6,7 +6,9 @@ import Input from "../input/InputField";
 import Select from "../Select";
 import TextArea from "../input/TextArea.tsx";
 import Button from "../../ui/button/Button.tsx";
-
+import useUserData from "../../../hooks/authControler.ts";
+import axios from "axios";
+import { useAuth } from "../../../../context/AuthProvider.tsx";
 const fileTypes = {
   "image/png": [],
   "image/jpeg": [],
@@ -21,19 +23,30 @@ const selectOptions = [
 ];
 
 export default function DefaultInputs() {
-  const [message, setMessage] = useState("");
-  const [selectedOption, setSelectedOption] = useState<string>("");
   const [inputValue, setInputValue] = useState("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [message, setMessage] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const userData = useUserData();
+  const { token } = useAuth();
 
-  const handleSelectChange = (value: string) => {
-    setSelectedOption(value);
-  };
+  // Load from localStorage on mount
+  useEffect(() => {
+    setInputValue(localStorage.getItem("blog_inputValue") || "");
+    setSelectedOption(localStorage.getItem("blog_selectedOption") || "");
+    setMessage(localStorage.getItem("blog_message") || "");
 
-  const handleTextAreaChange = (value: string) => {
-    setMessage(value);
-  };
+  }, []);
+
+  // Save to localStorage on changes
+  useEffect(() => {
+    localStorage.setItem("blog_inputValue", inputValue);
+    localStorage.setItem("blog_selectedOption", selectedOption);
+    localStorage.setItem("blog_message", message);
+  }, [inputValue, selectedOption, message]);
 
   const handleDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles && acceptedFiles[0]) {
@@ -48,33 +61,57 @@ export default function DefaultInputs() {
     multiple: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputValue || !selectedOption || !message || !selectedFile) {
-      alert("Please fill all fields and select a file.");
-      return;
-    }
+    setError(null);
+    setSuccess(null);
 
-    // Form is valid; handle submission logic here
-    console.log({
-      inputValue,
-      selectedOption,
-      message,
-      selectedFile,
-    });
+    // if (!inputValue || !selectedOption || !message || !selectedFile || !userData?.user_id) {
+    //   setError("Please fill all fields and upload a file.");
+    //   return;
+    // }
+      console.log("Submitting blog..." ,selectedFile?.name);
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/posts", {
+        title: inputValue,
+        types: selectedOption.toUpperCase(), // "EXTERNAL", "INTERNAL", "RESEARCH"
+        content: message,
+        images: selectedFile?.name,
+        viewer: 0,
+        user_id: userData?.userId,
+      },
+        {
+          headers: {
+           Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setSuccess("Blog submitted successfully!");
+      }
+      setInputValue(""); setMessage(""); setSelectedOption(""); setPreview(null); setSelectedFile(null);
+
+      console.log("Submitting blog:", response.data);
+    } catch (error) {
+      console.error("Error submitting blog:", error);
+      setError("Failed to submit blog.");
+    }
   };
 
   return (
     <ComponentCard title="Post blogs">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {error && <div className="text-red-600 font-medium">{error}</div>}
+        {success && <div className="text-green-600 font-medium">{success}</div>}
+
         {/* File Drop Area */}
         <div
           {...getRootProps()}
-          className={`cursor-pointer rounded-xl border border-dashed p-7 lg:p-10 transition ${
-            isDragActive
-              ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
-              : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
-          }`}
+          className={`cursor-pointer rounded-xl border border-dashed p-7 lg:p-10 transition ${isDragActive
+            ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
+            : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
+            }`}
         >
           <input {...getInputProps()} />
           <div className="flex flex-col items-center">
@@ -122,7 +159,6 @@ export default function DefaultInputs() {
           <Input
             type="text"
             id="input"
-    
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
@@ -134,8 +170,7 @@ export default function DefaultInputs() {
           <Select
             options={selectOptions}
             placeholder="Select an option"
-            onChange={handleSelectChange}
-
+            onChange={(value: string) => setSelectedOption(value)}
           />
         </div>
 
@@ -144,9 +179,8 @@ export default function DefaultInputs() {
           <Label>Description <span className="text-red-500">*</span></Label>
           <TextArea
             value={message}
-            onChange={handleTextAreaChange}
+            onChange={setMessage}
             rows={6}
-        
             hint="Please enter a valid message."
           />
         </div>

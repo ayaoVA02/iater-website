@@ -1,10 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import Button from "../ui/button/Button";
+import { useAuth } from "../../../context/AuthProvider";
+import {jwtDecode} from "jwt-decode";
 
+type TokenPayload = {
+  username: string;
+  email: string;
+  [key: string]: any;
+};
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
+  const [userData, setUserData] = useState<TokenPayload | null>(null);
+  const { setToken ,token } = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // const token = localStorage.getItem("access_token");
+    console.log("token",token);
+    if (token) {
+      try {
+        const decoded: TokenPayload = jwtDecode(token);
+        setUserData(decoded);
+      } catch (error) {
+        console.error("Failed to decode token", error);
+      }
+    }
+  }, []);
+
+  console.log("data of user",userData);
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -13,6 +40,16 @@ export default function UserDropdown() {
   function closeDropdown() {
     setIsOpen(false);
   }
+
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    setToken(null);
+    navigate("/signin");
+  };
+
+  const getInitial = (username: string) => username?.charAt(0).toUpperCase();
+
   return (
     <div className="relative">
       <button
@@ -20,14 +57,15 @@ export default function UserDropdown() {
         className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
       >
         <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-          <img src="/images/user/owner.jpg" alt="User" />
+          {/* <img src="/images/user/owner.jpg" alt="User" /> */}
+                    {userData?.username ? getInitial(userData.username) : "?"}
+
         </span>
 
-        <span className="block mr-1 font-medium text-theme-sm">Musharof</span>
+        <span className="block mr-1 font-medium text-theme-sm">{userData?.role || "Guest"}</span>
         <svg
-          className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
-          }`}
+          className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+            }`}
           width="18"
           height="20"
           viewBox="0 0 18 20"
@@ -135,8 +173,8 @@ export default function UserDropdown() {
             </DropdownItem>
           </li>
         </ul>
-        <Link
-          to="/signin"
+        <Button
+          onClick={handleLogout}
           className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
         >
           <svg
@@ -155,7 +193,7 @@ export default function UserDropdown() {
             />
           </svg>
           Sign out
-        </Link>
+        </Button>
       </Dropdown>
     </div>
   );

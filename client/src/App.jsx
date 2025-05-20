@@ -22,49 +22,53 @@ import FormElements from "./dashboard/pages/Forms/FormElements";
 import AppLayout from "./dashboard/layout/AppLayout";
 import { ScrollToTop } from "./dashboard/components/common/ScrollToTop";
 
+
+import { AuthProvider } from "./context/AuthProvider";
+import ProtectedRoute from "./context/ProtectedRoute"
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="project" element={<ProjectPage />} />
-          <Route path="program" element={<ProgramPage />} />
-          <Route path="people" element={<PeoplePage />} />
-          <Route path="history" element={<HistoryPage />} />
-          <Route path="aieducation" element={<AIEducationTabs />} />
-          <Route path="projectDetail/:id" element={<BlogPostDetail />} />
-        </Route>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="project" element={<ProjectPage />} />
+            <Route path="program" element={<ProgramPage />} />
+            <Route path="people" element={<PeoplePage />} />
+            <Route path="history" element={<HistoryPage />} />
+            <Route path="aieducation" element={<AIEducationTabs />} />
+            <Route path="projectDetail/:id" element={<BlogPostDetail />} />
+          </Route>
 
+          {/* Dashboard */}
 
-        {/* Dashboard */}
+          <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
 
-        <Route element={<AppLayout />}>
+            <Route index path="/dashboard" element={<Home />} />
 
-          <Route index path="/dashboard" element={<Home />} />
+            {/* Others Page */}
+            <Route path="/profile" element={<UserProfiles />} />
+            <Route path="/calendar" element={<Calendar />} />
 
-          {/* Others Page */}
-          <Route path="/profile" element={<UserProfiles />} />
-          <Route path="/calendar" element={<Calendar />} />
+            {/* Forms */}
+            <Route path="/form-elements" element={<FormElements />} />
 
-          {/* Forms */}
-          <Route path="/form-elements" element={<FormElements />} />
+            {/* Tables */}
+            <Route path="/basic-tables" element={<BasicTables />} />
 
-          {/* Tables */}
-          <Route path="/basic-tables" element={<BasicTables />} />
+            {/* Auth Layout */}
+            {/* <Route path="**" element={<NotFound />} /> */}
 
-          {/* Auth Layout */}
-          {/* <Route path="**" element={<NotFound />} /> */}
+            <Route path="/signup" element={<SignUp />} />
+          </Route>
+          <Route path="/signin" element={<SignIn />} />
 
-          <Route path="/signup" element={<SignUp />} />
-        </Route>
-        <Route path="/signin" element={<SignIn />} />
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 

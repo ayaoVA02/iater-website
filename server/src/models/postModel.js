@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     content: { type: DataTypes.TEXT, allowNull: false },
     viewer: { type: DataTypes.INTEGER, defaultValue: 0 },
     types: {
-      type: DataTypes.ENUM("EXTERNAL", "INTERNAL_ACTIVITY", "RESEARCH"),
+      type: DataTypes.ENUM("EXTERNAL", "INTERNAL", "RESEARCH"),
       allowNull: false,
     },
     images: { type: DataTypes.STRING, allowNull: false },
