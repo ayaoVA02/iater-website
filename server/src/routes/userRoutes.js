@@ -61,9 +61,18 @@ router.get("/:id", authMiddleware, roleMiddleware("ADMIN"), userController.getUs
  *               password:
  *                 type: string
  *                 description: User password (min 6 chars)
+ *               name:
+ *                 type: string
+ *                 description: Full name of the user
+ *               role:
+ *                 type: string
+ *                 enum: [ADMIN]
+ *                 description: User role (only "ADMIN" allowed)
  *             example:
- *               email: user@example.com
- *               password: newpassword123
+ *               email: admin@gmail.com
+ *               password: admin123
+ *               name: admin
+ *               role: ADMIN
  *     responses:
  *       200:
  *         description: User updated
