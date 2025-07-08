@@ -2,6 +2,7 @@ import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import DefaultInputs from "../../components/form/form-elements/DefaultInputs";
 import PageMeta from "../../components/common/PageMeta";
 import RecentOrders from "../../components/ecommerce/RecentOrders";
+// import EditPost from "../../components/form/form-elements/EditPost";
 
 export default function FormElements() {
   return (
@@ -15,11 +16,13 @@ export default function FormElements() {
         <div className="space-y-6">
           <DefaultInputs />
         </div>
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
+          <EditPost />
+        </div> */}
+      </div>
+        <div className="space-y-6 mt-8">
           <RecentOrders />
         </div>
-
-      </div>
     </div>
   );
 }

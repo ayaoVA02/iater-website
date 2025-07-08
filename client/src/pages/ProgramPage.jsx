@@ -14,11 +14,8 @@ const ProgramPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <div className="bg-white">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-8">
-          <Logo />
-          <LanguageSelector />
-        </div>
+      <div className="container mx-auto px-4 py-6 w-[1224px]">
+        
 
         <h1 className="text-center text-xl mb-6">iATER는 배움이 있습니다</h1>
 
@@ -31,7 +28,7 @@ const ProgramPage = () => {
             spaceBetween={30}
             slidesPerView={1}
 
-            className="rounded-md overflow-hidden"
+            className="rounded-md overflow-hidden h-full bg-blue-500"
           >
 
             <SwiperSlide>
@@ -334,25 +331,25 @@ const ProgramPage = () => {
                 <div className="flex justify-around">
                   <div className="text-center">
                     <Link to={'/aieducation'} >
-                    <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
-                      <svg viewBox="0 0 24 24" className="w-full h-full">
-                        <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                        <path d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8" fill="none" stroke="currentColor" strokeWidth="2" />
-                      </svg>
-                    </div>
+                      <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
+                        <svg viewBox="0 0 24 24" className="w-full h-full">
+                          <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
+                          <path d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8" fill="none" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                      </div>
                     </Link>
                     <p className="text-xs">사·인재 양성센터</p>
                   </div>
                   <div className="text-center">
                     <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
-                    <Link to={'/aieducation'} >
-                    
-                      <svg viewBox="0 0 24 24" className="w-full h-full">
-                        <rect x="4" y="4" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" />
-                        <rect x="8" y="8" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="2" />
-                        <rect x="10" y="10" width="4" height="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                      </svg>
-                    </Link>
+                      <Link to={'/aieducation'} >
+
+                        <svg viewBox="0 0 24 24" className="w-full h-full">
+                          <rect x="4" y="4" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" />
+                          <rect x="8" y="8" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="2" />
+                          <rect x="10" y="10" width="4" height="4" fill="none" stroke="currentColor" strokeWidth="2" />
+                        </svg>
+                      </Link>
                     </div>
                     <p className="text-xs">
                       연구·개발센터 및<br />
@@ -362,18 +359,18 @@ const ProgramPage = () => {
                   <div className="text-center">
                     <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
 
-                    <Link to={'/aieducation'} >
-                      <svg viewBox="0 0 24 24" className="w-full h-full">
-                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="none" stroke="currentColor" strokeWidth="2" />
-                        <path
-                          d="M12 16v-4M12 8h.01"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </Link>
+                      <Link to={'/aieducation'} >
+                        <svg viewBox="0 0 24 24" className="w-full h-full">
+                          <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="none" stroke="currentColor" strokeWidth="2" />
+                          <path
+                            d="M12 16v-4M12 8h.01"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </Link>
                     </div>
                     <p className="text-xs">AI·정보화센터</p>
                   </div>
@@ -384,29 +381,29 @@ const ProgramPage = () => {
             </SwiperSlide>
 
           </Swiper>
-          
+
+        {/* Navigation Buttons */}
+        {activeIndex > 0 && (
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className="cursor-pointer absolute left-[10px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
+          >
+            <BiChevronLeft size={24} />
+          </button>
+        )}
+
+        {activeIndex < 3 && (
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="cursor-pointer absolute right-[10px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
+          >
+            <BiChevronRight size={24} />
+          </button>
+        )}
         </div>
 
 
 
-{/* Navigation Buttons */}
-{activeIndex > 0 && (
-            <button
-              onClick={() => swiperRef.current?.slidePrev()}
-              className="cursor-pointer absolute left-[30px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
-            >
-              <BiChevronLeft size={24} />
-            </button>
-          )}
-
-          {activeIndex < 3 && (
-            <button
-              onClick={() => swiperRef.current?.slideNext()}
-              className="cursor-pointer absolute right-[30px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
-            >
-              <BiChevronRight size={24} />
-            </button>
-          )}
 
 
       </div>

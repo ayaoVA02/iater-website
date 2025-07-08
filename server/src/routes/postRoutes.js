@@ -8,19 +8,41 @@ const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 
+// const uploadPath = path.join(__dirname, "../../../client/public/uploads");
+// if (!fs.existsSync(uploadPath)) {
+//   fs.mkdirSync(uploadPath, { recursive: true });
+// }
+
+// // Multer config
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, uploadPath),
+//   filename: (req, file, cb) => {
+//     cb(null, uuidv4() + path.extname(file.originalname));
+//   },
+// });
+
+// const upload = multer({
+//   storage,
+//   fileFilter: (req, file, cb) => {
+//     const allowedTypes = /jpeg|jpg|png/;
+//     const ext = path.extname(file.originalname).toLowerCase();
+//     if (allowedTypes.test(ext)) cb(null, true);
+//     else cb(new Error("Only .png, .jpg and .jpeg formats are allowed."));
+//   },
+//   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+// });
+
+// ✅ Ensure upload directory exists
 const uploadPath = path.join(__dirname, "../../../client/public/uploads");
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
 }
 
-// Multer config
+// ✅ Multer configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadPath),
-  filename: (req, file, cb) => {
-    cb(null, uuidv4() + path.extname(file.originalname));
-  },
+  filename: (req, file, cb) => cb(null, uuidv4() + path.extname(file.originalname)),
 });
-
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
@@ -31,6 +53,10 @@ const upload = multer({
   },
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
+
+router.post("/api/posts", upload.single("file"), postController.create);
+
+module.exports = router;
 /**
  * @swagger
  * tags:

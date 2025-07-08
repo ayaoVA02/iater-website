@@ -7,6 +7,7 @@ const isNonNegativeInteger = (val) => Number.isInteger(val) && val >= 0;
 
 // Helper to delete file safely
 const deleteFile = (fileName) => {
+  
   const fullPath = path.join(__dirname, "../../../client/public/uploads", fileName);
   if (fileName && fs.existsSync(fullPath)) {
     fs.unlinkSync(fullPath);
@@ -16,6 +17,8 @@ const deleteFile = (fileName) => {
 exports.create = async (req, res) => {
   const { title, content, types, user_id, viewer } = req.body;
   const imageName = req.file ? req.file.filename : null;
+
+console.log({imageName});
 
   if (!isNonEmptyString(title) || !isNonEmptyString(content) || !user_id) {
     return res.status(400).json({ error: "title, content, and user_id are required." });

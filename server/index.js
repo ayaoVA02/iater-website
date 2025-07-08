@@ -29,6 +29,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/user", userRoutes);
 
+// check api health
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "API is healthy" });
+});
 // Swagger
 swagger(app);
 

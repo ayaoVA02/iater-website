@@ -6,6 +6,7 @@ import LanguageSelector from "../components/LanguageSelector"
 
 import { logo2 } from "../assets/images"
 import { useTranslation, Trans } from "react-i18next";
+import useDeviceType from "../hook/useDeviceType"
 const AboutPage = () => {
   const location = useLocation()
   const [activeSection, setActiveSection] = useState("vision")
@@ -18,7 +19,7 @@ const AboutPage = () => {
   }, [location])
 
   const gotoHistory = () => {
-    navigate('/history');
+    navigate('/iater/history');
   };
 
   function truncateWords(text, count) {
@@ -27,20 +28,25 @@ const AboutPage = () => {
   }
 
 
- const fontClass = {
+  const fontClass = {
     en: "font-en",
     la: "font-lao",
     ko: "font-kr",
-  }[i18n.language]; 
+  }[i18n.language];
+
+
+  const deviceType = useDeviceType();
+  const getContentWidth = () => {
+    if (deviceType === 'desktop') return 'desktopWidth';
+    if (deviceType === 'tablet') return 'templetWidth';
+    return 'mobileWidth'; // mobile
+  };
   return (
     <div className={`bg-white ${fontClass}`}>
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-8">
-          <Logo />
-          <LanguageSelector />
-        </div>
+      <div className={`${getContentWidth()} mx-auto px-4 py-6 widthfixed`}>
 
-        <div className="bg-gray-100 rounded-[50px] p-8 mb-12" id="vision">
+
+        <div className="bg-gray-100 rounded-[50px] p-8 mb-12 " id="vision">
           <h2 className="text-lg font-bold mb-4">1. {t("home.aboutMenuItems1")}</h2>
           <p className="mb-4"> <Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.1_p1")}</Trans></p>
           <p className="mb-4">
@@ -61,24 +67,24 @@ const AboutPage = () => {
 
         </div>
 
-        <div className="px-8 flex flex-col gap-16" id="mission">
+        <div className="px-4 flex flex-col gap-16 " >
 
-          <div className="mt-14">
-            <h2 className="text-lg font-bold mb-4">2. {t("home.aboutMenuItems2")}</h2>
+          <div className="mt-14" id="mission">
+            <h2 className="text-lg font-bold mb-4 mt-6">2. {t("home.aboutMenuItems2")}</h2>
             <p className="mb-4"> <Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.2_p1")}</Trans>
             </p>
             <p className="mb-4">
               <Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.2_p2")}</Trans></p>
-            <p className="mb-8 lg:w-[60%]"><Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.2_p3")}</Trans></p>
+            <p className="mb-8 "><Trans components={{ strong: <strong className="font-bold" /> }}>{t("about.2_p3")}</Trans></p>
 
 
           </div>
 
           <div id="mission-statement">
-            <h2 className="text-lg font-bold mb-4" >3. {t("home.aboutMenuItems3")}</h2>
+            <h2 className="text-lg font-bold mb-4 mt-6" >3. {t("home.aboutMenuItems3")}</h2>
             <div className="flex justify-around mt-12 ">
               <div className="text-center w-[20%]">
-                <Link to={'/aieducation'} >
+                <Link to={'/iater/aieducation'} >
                   <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
                     <svg viewBox="0 0 24 24" className="w-full h-full">
                       <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
@@ -94,7 +100,7 @@ const AboutPage = () => {
                 </Link>
               </div>
               <div className="text-center w-[20%]">
-                <Link to={'/aieducation'}  >
+                <Link to={'/iater/aieducation'}  >
 
                   <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
                     <svg viewBox="0 0 24 24" className="w-full h-full">
@@ -105,7 +111,7 @@ const AboutPage = () => {
                   </div>
                   <p className="text-xs hover:underline  block sm:hidden">
                     <Trans
-                      i18nKey={`${truncateWords(t("about.3_p2"),3 )}`}
+                      i18nKey={`${truncateWords(t("about.3_p2"), 3)}`}
                       components={{
                         strong: <strong className="font-bold" />,
                         br: <br />
@@ -124,7 +130,7 @@ const AboutPage = () => {
                 </Link>
               </div>
               <div className="text-center w-[20%]">
-                <Link to={'/aieducation'} >
+                <Link to={'/iater/aieducation'} >
 
                   <div className="w-20 h-20 mx-auto border-2 border-gray-300 rounded-lg p-2 mb-2">
                     <svg viewBox="0 0 24 24" className="w-full h-full">
@@ -146,8 +152,8 @@ const AboutPage = () => {
 
           </div>
 
-          <div >
-            <h2 className="text-lg font-bold mb-4" >4. {t("home.aboutMenuItems4")}</h2>
+          <div id="organization">
+            <h2 className="text-lg font-bold mb-4 mt-6" >4. {t("home.aboutMenuItems4")}</h2>
             <div className="bg-blue-500 text-white p-4 rounded-lg mb-8 mt-12 ">
               <h3 className="text-center font-bold text-3xl mb-4">iATER</h3>
               <div className="grid grid-cols-3 gap-4">
@@ -203,8 +209,8 @@ const AboutPage = () => {
 
           </div>
 
-          <div>
-            <h2 className="text-lg font-bold mb-4">7. {t("home.aboutMenuItems7")}</h2>
+          <div id="logo">
+            <h2 className="text-lg font-bold mb-4 ">7. {t("home.aboutMenuItems7")}</h2>
             <div className=" p-4 rounded-lg mb-8">
               <div className="flex justify-between">
                 <div className="w-1/2 max-sm:w-full  bg-gray-200 p-8">
@@ -226,7 +232,7 @@ const AboutPage = () => {
             </div>
 
             <div className="flex space-x-4 w-full max-sm:justify-center">
-              <Link to={"/people"} className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer w-38 text-center">{t("home.aboutMenuItems5")}</Link>
+              <Link to={"/iater/people"} className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer w-38 text-center">{t("home.aboutMenuItems5")}</Link>
               <button onClick={gotoHistory} className="bg-white border border-gray-300  py-2 rounded cursor-pointer px-12">{t("about.history")}</button>
             </div>
           </div>

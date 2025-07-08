@@ -2,26 +2,37 @@ import { map } from "../assets/images"
 import Logo from "./Logo"
 import { FaFacebook, FaMapMarkerAlt } from "react-icons/fa"
 import { useTranslation } from "react-i18next";
+import useDeviceType from "../hook/useDeviceType";
 const Footer = () => {
-    const { t, i18n } = useTranslation();
-  
-  
-    const fontClass = {
-      en: "font-en",
-      la: "font-lao",
-      ko: "font-kr",
-    }[i18n.language];
+  const { t, i18n } = useTranslation();
+
+
+  const fontClass = {
+    en: "font-en",
+    la: "font-lao",
+    ko: "font-kr",
+  }[i18n.language];
+
+
+    const deviceType = useDeviceType();
+
+  const getContentWidth = () => {
+    if (deviceType === 'desktop') return 'desktopWidth';
+    if (deviceType === 'tablet') return 'templetWidth';
+    return 'mobileWidth'; // default: mobile
+  };
   return (
-    <footer className={`bg-white py-6 ${fontClass}`}>
-      <div className="container mx-auto px-4 flex flex-col  md:flex-row justify-between items-center">
-        <div className="flex flex-col items-center md:items-center mb-4 md:mb-0 w-[30%]">
+    <footer className={`bg-white py-6 ${fontClass} mx-auto w-full bg-red-500`}>
+      <div className="w-full h-[1px] bg-gray-200 my-4 " />
+      <div className={` ${getContentWidth()} mx-auto  flex  widthfixed   justify-between items-center`}>
+        <div className="flex flex-col items-center  ">
           <Logo />
           <p className="text-meduin text-center md:text-left mt-2">
-           {t("banner.title")}
+            {t("banner.title")}
           </p>
         </div>
 
-        <div className="text-center md:text-center  w-[300px]">
+        <div className="text-center w-[300px]">
           <h3 className=" mb-2 font-bold">{t("footer.contact")}</h3>
           <p className="text-meduin text-gray-600 mb-1">iaterkorea2020@gmail.com</p>
           <p className="text-meduin text-gray-600 mb-2">+82 20 56 527 800</p>
@@ -33,12 +44,12 @@ const Footer = () => {
             </a>
             <a href="#" className="flex items-center text-sm text-gray-600">
               <FaMapMarkerAlt className="mr-1  text-orange-500 text-3xl" />
-           {t("footer.address")}
+              {t("footer.address")}
             </a>
           </div>
         </div>
 
-        <div className="hidden md:block">
+        <div >
           <img src={map} alt="Map" className="w-32 h-32 object-cover rounded" />
         </div>
       </div>

@@ -17,9 +17,9 @@ const fileTypes = {
 };
 
 const selectOptions = [
-  { value: "External", label: "External Project" },
-  { value: "Internal", label: "Internal Activities" },
-  { value: "Research", label: "Research Activities" },
+  { value: "EXTERNAL", label: "External Project" },
+  { value: "INTERNAL_ACTIVITY", label: "Internal Activities" },
+  { value: "RESEARCH", label: "Research Activities" },
 ];
 
 export default function DefaultInputs() {
@@ -32,14 +32,6 @@ export default function DefaultInputs() {
   const [success, setSuccess] = useState<string | null>(null);
   const userData = useUserData();
   const { token } = useAuth();
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    setInputValue(localStorage.getItem("blog_inputValue") || "");
-    setSelectedOption(localStorage.getItem("blog_selectedOption") || "");
-    setMessage(localStorage.getItem("blog_message") || "");
-
-  }, []);
 
   // Save to localStorage on changes
   useEffect(() => {
@@ -66,41 +58,45 @@ export default function DefaultInputs() {
     setError(null);
     setSuccess(null);
 
-    // if (!inputValue || !selectedOption || !message || !selectedFile || !userData?.user_id) {
-    //   setError("Please fill all fields and upload a file.");
-    //   return;
-    // }
-      console.log("Submitting blog..." ,selectedFile?.name);
+    console.log({ inputValue, selectedOption, message, selectedFile, userId: userData?.id });
+
+    if (!inputValue || !selectedOption || !message || !selectedFile || !userData?.id) {
+      setError("Please fill all fields and upload a file.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", inputValue);
+    formData.append("types", selectedOption);
+    formData.append("content", message);
+    formData.append("viewer", "0");
+    formData.append("user_id", userData?.id);
+    formData.append("images", selectedFile); // 👈 Must be "file" because backend uses req.file
 
     try {
-      const response = await axios.post("http://localhost:3000/api/posts", {
-        title: inputValue,
-        types: selectedOption.toUpperCase(), // "EXTERNAL", "INTERNAL", "RESEARCH"
-        content: message,
-        images: `${selectedFile?.name}`,
-        viewer: 0,
-        user_id: userData?.userId,
-      },
-        {
-          headers: {
-           Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
+      const response = await axios.post("http://localhost:3000/api/posts", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      if (response.status === 201) {
         setSuccess("Blog submitted successfully!");
+        setInputValue("");
+        setMessage("");
+       
+        setPreview(null);
+        setSelectedFile(null);
       }
-      setInputValue(""); setMessage(""); setSelectedOption(""); setPreview(null); setSelectedFile(null);
-
-      console.log("Submitting blog:", response.data);
-    } catch (error) {
-      console.error("Error submitting blog:", error);
+    } catch (err) {
+      console.error("Error submitting blog:", err);
       setError("Failed to submit blog.");
     }
   };
 
+
   return (
-    <ComponentCard title="Post blogs">
+    <ComponentCard title="New post">
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && <div className="text-red-600 font-medium">{error}</div>}
         {success && <div className="text-green-600 font-medium">{success}</div>}
@@ -176,7 +172,8 @@ export default function DefaultInputs() {
 
         {/* TextArea */}
         <div>
-          <Label>Description <span className="text-red-500">*</span></Label>
+          <Label>Description <span className="text-red-500">*</span> </Label>
+          <p className="text-sm text-gray-300">write subtitle with h2 --title--- h2</p>
           <TextArea
             value={message}
             onChange={setMessage}

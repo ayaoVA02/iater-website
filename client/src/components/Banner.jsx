@@ -1,5 +1,6 @@
 import { dec, subscribe_bg } from "../assets/images"
 import { useTranslation } from "react-i18next";
+import useDeviceType from "../hook/useDeviceType";
 const Banner = () => {
   const { t, i18n } = useTranslation();
 
@@ -10,10 +11,20 @@ const Banner = () => {
     ko: "font-kr",
   }[i18n.language];
 
-  return (
-    <div className={`px-2 mb-2 ${fontClass}`}>
 
-      <div className=" text-white py-6 px-4 relative overflow-hidden h-48 rounded-3xl " style={{ backgroundImage: `url(${subscribe_bg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+      const deviceType = useDeviceType();
+  const getContentWidth = () => {
+    if (deviceType === 'desktop') return 'desktopWidth';
+    if (deviceType === 'tablet') return 'templetWidth';
+    return 'mobileWidth'; // mobile
+  };
+
+
+
+  return (
+    <div className={`mx-auto mb-2${fontClass}`}>
+
+        <div className={` ${getContentWidth()} text-white py-6   relative overflow-hidden h-48 rounded-3xl `} style={{ backgroundImage: `url(${subscribe_bg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
         <div className="container mx-auto relative z-10 text-center">
           <h2 className="text-xl md:text-2xl font-bold mb-8">{t("banner.title")}</h2>
           <p className="text-sm opacity-90">

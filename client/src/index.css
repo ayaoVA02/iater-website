@@ -32,7 +32,21 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+/* .widthfixed{
+  width: 1424px;
+} */
+.desktopWidth {
+  width: 1200px;
+}
 
+.mobileWidth {
+  width: 390px;
+}
+
+.templetWidth {
+  
+  width: 768px;
+}
 /* Custom hover effects for NavBox */
 .nav-box-hover {
   transition: all 0.3s ease;

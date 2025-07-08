@@ -4,7 +4,7 @@ import { logo2 } from '../assets/images'
 const Logo = () => {
   return (
     <>
-    <Link to="/">
+    <Link to="/iater">
 
         <img src={logo2} alt="logo" className="w-auto h-16 object-cover" />
     </Link>

@@ -25,13 +25,16 @@ import { ScrollToTop } from "./dashboard/components/common/ScrollToTop";
 
 import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./context/ProtectedRoute"
+import EditPost from "./dashboard/components/form/form-elements/EditPost"
+import Onboard from "./pages/Onboard"
 function App() {
   return (
     <AuthProvider>
       <Router>
         <ScrollToTop />
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Onboard />} />
+          <Route path="iater" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="project" element={<ProjectPage />} />
@@ -57,6 +60,7 @@ function App() {
 
             {/* Tables */}
             <Route path="/basic-tables" element={<BasicTables />} />
+            <Route path="/editpost/:id" element={<EditPost />} />
 
             {/* Auth Layout */}
             {/* <Route path="**" element={<NotFound />} /> */}

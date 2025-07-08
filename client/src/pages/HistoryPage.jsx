@@ -1,6 +1,7 @@
 import Logo from "../components/Logo"
 import LanguageSelector from "../components/LanguageSelector"
 import { useTranslation } from "react-i18next";
+import useDeviceType from "../hook/useDeviceType";
 
 const HistoryPage = () => {
   const { t, i18n } = useTranslation();
@@ -49,16 +50,18 @@ const HistoryPage = () => {
     },
   ]
 
+    const deviceType = useDeviceType();
+  const getContentWidth = () => {
+    if (deviceType === 'desktop') return 'desktopWidth';
+    if (deviceType === 'tablet') return 'templetWidth';
+    return 'mobileWidth'; // mobile
+  };
+
   return (
     <div className={`bg-white ${fontClass}`}>
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-8">
-          <Logo />
-          <LanguageSelector />
-        </div>
-
+      <div className={`${getContentWidth()} ${deviceType === 'mobile' ? 'w-full' : ''} widthfixed mx-auto px-4 py-6`}>
         <h1 className="text-center text-xl mb-8">{t("about.history")}</h1>
-<br />
+        <br />
         <div className="space-y-12 mb-12">
           {historyItems.map((item, index) => (
             <div key={index} className="flex">

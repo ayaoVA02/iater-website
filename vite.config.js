@@ -22,7 +22,7 @@ export default defineConfig({
       port: 5173, 
     allowedHosts: ['iater-web-front.onrender.com'],
     proxy: {
-      '/api': 'http://localhost:5000'
+      '/api': 'http://192.168.100.13:5000'
     }
   },
   // server: {

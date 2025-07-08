@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useDeviceType from "../hook/useDeviceType";
 
 const NavBox = ({ title, color, link, subtitle, menuItems }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -19,27 +20,44 @@ const NavBox = ({ title, color, link, subtitle, menuItems }) => {
     green: "bg-green-500 hover:bg-green-500",
   };
 
-  const showDetails = isMobile || isHovered;
+  const showDetails =  isHovered;
+
+
+        const deviceType = useDeviceType();
+  const getContentWidth = () => {
+    if (deviceType === 'desktop') return 'desktopWidth';
+    if (deviceType === 'tablet') return 'templetWidth';
+    return 'mobileWidth'; // mobile
+  };
 
   return (
     <div
-      className="relative flex justify-center items-center w-full"
+      className={`relative flex justify-center items-center  h-[300px] ${deviceType === 'mobile' ? 'mobileWidth' : 'w-[390px]'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={`${colorClasses[color]} 
-          lg:absolute w-full max-w-[400px] lg:mt-[60%]
-          rounded-[50px] lg:hover:rounded-[100px] 
+
+        ${deviceType === 'mobile' ? 'w-full mx-3' : 'w-[530px]'}
+       
+          hover:absolute
+          hover:z-20
+          rounded-[50px] 
+          hover:rounded-[80px]
           p-8 text-white text-center 
           transition-all duration-300 transform origin-center 
-          ${isMobile ? "h-[400px]" : "h-[200px] lg:hover:h-[400px] lg:hover:scale-110"} 
+          
           flex flex-col justify-center items-center 
-          ${!isMobile && "lg:hover:z-30"}
+          h-[300px] hover:h-[400px]
+     
         `}
       >
+        <div className="">
+
         <h2 className="text-2xl font-bold mb-4">{title}</h2>
         <p className="text-sm">{subtitle}</p>
+        </div>
 
         {showDetails && menuItems && (
           <div className="w-full mt-4 transition-all duration-300">

@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { useRef, useState } from "react";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import useDeviceType from "../hook/useDeviceType";
 
 const PeoplePage = () => {
   const people = [
@@ -65,15 +66,21 @@ const PeoplePage = () => {
   }
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0)
-  return (
-    <div className="bg-white min-h-screen flex flex-col justify-between">
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-8">
-          <Logo />
-          <LanguageSelector />
-        </div>
 
-        <h1 className="text-xl mb-8">함께 하는 이들</h1>
+
+
+  
+    const deviceType = useDeviceType();
+  const getContentWidth = () => {
+    if (deviceType === 'desktop') return 'desktopWidth';
+    if (deviceType === 'tablet') return 'templetWidth';
+    return 'mobileWidth'; // mobile
+  };
+  return (
+    <div className="bg-white min-h-screen items-center flex flex-col justify-center  mx-auto">
+      <h1 className="text-xl text-center mb-3">함께 하는 이들</h1>
+      {/* <div className="widthfixed mx-auto px-4 py-6 relative "> */}
+      <div className={`${getContentWidth()} mx-auto px-4 py-6 relative `}>
 
         <Swiper
           modules={[Pagination]}
@@ -88,9 +95,9 @@ const PeoplePage = () => {
         >
           {chunkedPeople.map((group, index) => (
             <SwiperSlide key={index}>
-              <div className="space-y-8 lg:px-18">
+              <div className="space-y-8 lg:px-18 mt-2 ">
                 {group.map((person) => (
-                  <div key={person.id} className="flex flex-col md:flex-row pb-6">
+                  <div key={person.id} className={`${deviceType === 'mobile' ? ' flex-col' : 'flex flex-row '}   pb-6`}>
                     <div className="md:w-2/3 pr-6 mb-4 md:mb-0">
                       <h2 className="font-bold text-lg mb-2">{person.name}</h2>
                       <button className="bg-blue-500 text-white text-xs px-3 py-1 rounded mb-4">
@@ -98,7 +105,7 @@ const PeoplePage = () => {
                       </button>
                       <p className="text-sm">{person.description}</p>
                     </div>
-                    <div className="relative w-full h-48 bg-amber-300"> {/* Parent needs relative */}
+                    <div className={` ${deviceType === 'mobile' ? 'mobileWidth' : 'w-full'} relative  h-48 bg-blue-100`}> {/* Parent needs relative */}
                       <div className="absolute right-0 top-0 h-full w-auto">
                         <img
                           src={person.image}
@@ -121,7 +128,7 @@ const PeoplePage = () => {
           {activeIndex > 0 && (
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="cursor-pointer absolute left-[30px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
+              className="cursor-pointer absolute left-[0px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
             >
               <BiChevronLeft size={24} />
             </button>
@@ -130,7 +137,7 @@ const PeoplePage = () => {
           {activeIndex < 3 && (
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="cursor-pointer absolute right-[30px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
+              className="cursor-pointer absolute right-[0px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
             >
               <BiChevronRight size={24} />
             </button>

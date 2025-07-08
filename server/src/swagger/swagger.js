@@ -20,7 +20,8 @@ const options = {
       },
     },
     security: [{ bearerAuth: [] }],
-    servers: [{ url: "http://localhost:3000" }],
+    servers: [{ url: "http://192.168.81.1:3000" }],
+    // servers: [{ url: "http://localhost:3000" }],
   },
   apis: [path.join(__dirname, "../routes/*.js")],
 };
