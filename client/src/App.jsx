@@ -27,6 +27,9 @@ import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./context/ProtectedRoute"
 import EditPost from "./dashboard/components/form/form-elements/EditPost"
 import Onboard from "./pages/Onboard"
+import ViewAdvisor from "./pages/ViewAdvisor"
+import ViewProfessor from "./pages/ViewProfessor"
+import HumanReource from "./pages/HumanReource"
 function App() {
   return (
     <AuthProvider>
@@ -40,6 +43,9 @@ function App() {
             <Route path="project" element={<ProjectPage />} />
             <Route path="program" element={<ProgramPage />} />
             <Route path="people" element={<PeoplePage />} />
+            <Route path="advisor" element={<ViewAdvisor />} />
+            <Route path="professors" element={<ViewProfessor />} />
+            <Route path="humanresource" element={<HumanReource />} />
             <Route path="history" element={<HistoryPage />} />
             <Route path="aieducation" element={<AIEducationTabs />} />
             <Route path="projectDetail/:id" element={<BlogPostDetail />} />

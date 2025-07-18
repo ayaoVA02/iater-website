@@ -36,7 +36,7 @@ const NavBox = ({ title, color, link, subtitle, menuItems }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div
+      {/* <div
         className={`${colorClasses[color]} 
 
         ${deviceType === 'mobile' ? 'w-full mx-3' : 'w-[530px]'}
@@ -72,6 +72,10 @@ const NavBox = ({ title, color, link, subtitle, menuItems }) => {
             </ul>
           </div>
         )}
+      </div> */}
+
+      <div>
+        <img src="/webimage/introduct_kr.png" alt="" />
       </div>
     </div>
   );

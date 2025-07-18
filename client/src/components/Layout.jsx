@@ -2,26 +2,23 @@ import { Outlet } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
 import ResponsiveContainer from "./ResponsiveContainer"
+import { HoverProvider } from "../context/HoverContext"
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
-    <div className="bg-white w-full">
-
-
-  
-
-
-      <div className="flex flex-col min-h-screen bg-white">
-        <Header />
-        <main className="  bg-white mt-32">
-          <Outlet />
-        </main>
-        <Footer />
+    <HoverProvider>
+      <div className="bg-white w-full">
+        <div className="flex flex-col min-h-screen bg-white">
+          <Header />
+          {children}
+          <main className="bg-white mt-32">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
       </div>
-  
-    </div>
-
+    </HoverProvider>
   )
 }
 
-export default Layout
+export default Layout;

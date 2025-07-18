@@ -1,10 +1,12 @@
 import Logo from "./Logo"
 import LanguageSelector from "./LanguageSelector"
 import useDeviceType from "../hook/useDeviceType";
+import ListMenu from "./ListMenu";
+import { useState } from "react";
 
 const Header = () => {
   const deviceType = useDeviceType();
-
+ const [activeBox, setActiveBox] = useState(null);
   const getContentWidth = () => {
     if (deviceType === 'desktop') return 'desktopWidth';
     if (deviceType === 'tablet') return 'templetWidth';
@@ -16,8 +18,10 @@ const Header = () => {
       <div className={`mx-auto mt-4 ${getContentWidth()}`}>
         <div className="flex justify-between items-center mb-8 px-4 ">
           <Logo />
-          <LanguageSelector />
+          <ListMenu setActiveBox={setActiveBox} classStyle="flex-row" />
         </div>
+
+        {/* <img src="/webimage/002_01.png" alt="" /> */}
       </div>
     </header>
   );

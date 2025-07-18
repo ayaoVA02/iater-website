@@ -1,10 +1,13 @@
 import NavBox from "../components/NavBox"
+import IntroductBox from "../components/IntroductBox"
 import Banner from "../components/Banner"
 import Logo from "../components/Logo"
 import LanguageSelector from "../components/LanguageSelector"
 import { useTranslation } from "react-i18next";
 import ResponsiveContainer from "../components/ResponsiveContainer";
 import useDeviceType from "../hook/useDeviceType";
+import ProgrameBox from "../components/ProgrameBox"
+import ProjectBox from "../components/ProjectBox"
 const HomePage = () => {
   const { t, i18n } = useTranslation();
   const deviceType = useDeviceType();
@@ -51,21 +54,23 @@ const HomePage = () => {
     <div className={`bg-white ${fontClass} ${getContentWidth()} mx-auto mt-12`}>
       <div className={` ${deviceType === 'mobile' ? ' h-[900px] mx-auto ' : 'h-[500px] '}  flex justify-between items-center mb-12`}>
         <div className={`${deviceType === 'mobile' ? 'flex-col space-y-2' : 'flex space-x-2'}  `}>
-          <NavBox
-            title={t("home.title")}
-            color="blue"
-            link="/about"
-            subtitle={t("home.intoduc_subtitle")}
-            menuItems={aboutMenuItems}
-          />
-          <NavBox
+          
+      <IntroductBox
+        title={t("home.title")}
+        color="blue"
+        link="/about"
+        subtitle={t("home.intoduc_subtitle")}
+        menuItems={aboutMenuItems}
+        // isActive={activeBox === 'about'}
+      />
+          <ProjectBox
             title={t("home.project")}
             color="orange"
             link="/project"
             subtitle={t("home.project_subtitle")}
             menuItems={projectMenuItems}
           />
-          <NavBox
+          <ProgrameBox
             title={t("home.program")}
             color="green"
             link="/program"
@@ -79,7 +84,7 @@ const HomePage = () => {
 
       </div>
 
-      <Banner />
+      {/* <Banner /> */}
 
     </div>
 

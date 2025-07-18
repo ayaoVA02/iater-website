@@ -69,81 +69,85 @@ const PeoplePage = () => {
 
 
 
-  
-    const deviceType = useDeviceType();
+
+  const deviceType = useDeviceType();
   const getContentWidth = () => {
     if (deviceType === 'desktop') return 'desktopWidth';
     if (deviceType === 'tablet') return 'templetWidth';
     return 'mobileWidth'; // mobile
   };
   return (
-    <div className="bg-white min-h-screen items-center flex flex-col justify-center  mx-auto">
-      <h1 className="text-xl text-center mb-3">함께 하는 이들</h1>
+    <div className="">
+      {/* <h1 className="text-xl text-center mb-3">함께 하는 이들</h1> */}
       {/* <div className="widthfixed mx-auto px-4 py-6 relative "> */}
-      <div className={`${getContentWidth()} mx-auto px-4 py-6 relative `}>
+      <div className={`${getContentWidth()} mx-auto px-4 py-6 relative flex flex-col gap-24 `}>
 
-        <Swiper
-          modules={[Pagination]}
-          pagination={{ clickable: true }}
-          spaceBetween={30}
-          slidesPerView={1}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+        <div className="flex items-start justify-between mb-6 ">
+          <div className="w-1/3 flex items-center gap-4">
+            <img src="/icon/Solid/PNG/fan_.png" alt=""  className="w-[100px] h-auto object-cover rounded-xl"/>
+            <h1 className="text-4xl font-bold text-[#105691]">Advisor</h1>
+          </div>
+          <div className="w-full justify-around flex ">
+            <a href="/iater/advisor#leejong">
 
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-        >
-          {chunkedPeople.map((group, index) => (
-            <SwiperSlide key={index}>
-              <div className="space-y-8 lg:px-18 mt-2 ">
-                {group.map((person) => (
-                  <div key={person.id} className={`${deviceType === 'mobile' ? ' flex-col' : 'flex flex-row '}   pb-6`}>
-                    <div className="md:w-2/3 pr-6 mb-4 md:mb-0">
-                      <h2 className="font-bold text-lg mb-2">{person.name}</h2>
-                      <button className="bg-blue-500 text-white text-xs px-3 py-1 rounded mb-4">
-                        {person.position}
-                      </button>
-                      <p className="text-sm">{person.description}</p>
-                    </div>
-                    <div className={` ${deviceType === 'mobile' ? 'mobileWidth' : 'w-full'} relative  h-48 bg-blue-100`}> {/* Parent needs relative */}
-                      <div className="absolute right-0 top-0 h-full w-auto">
-                        <img
-                          src={person.image}
-                          alt={person.name}
-                          className="h-full object-contain rounded border border-b-blue-400 border-r-blue-500 border-t-0 border-l-0"
-                        />
-                      </div>
-                    </div>
+              <img src="/professors/leejong.png" alt=" professor leejong" className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+            <a href="/iater/advisor#somphone">
 
-                  </div>
-                ))}
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              <img src="/professors/somphone.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+          </div>
+        </div>
+        <div className="flex items-start justify-between mb-6 ">
+           <div className="w-1/3 flex items-center gap-4">
+            <img src="/icon/Solid/PNG/processor_.png" alt=""  className="w-[100px] h-auto object-cover rounded-xl"/>
 
-        <div className="max-sm:hidden max-lg:hidden">
+            <h1 className="text-4xl font-bold text-[#105691]">Profssors</h1>
+          </div>
+          <div className="w-full justify-around flex flex-wrap">
+            <a href="/iater/professors#baek" className="mb-8">
 
-          {/* Navigation Buttons */}
-          {activeIndex > 0 && (
-            <button
-              onClick={() => swiperRef.current?.slidePrev()}
-              className="cursor-pointer absolute left-[0px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
-            >
-              <BiChevronLeft size={24} />
-            </button>
-          )}
+              <img src="/professors/Baek.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+            <a href="/iater/professors#limjae" className="mb-8">
 
-          {activeIndex < 3 && (
-            <button
-              onClick={() => swiperRef.current?.slideNext()}
-              className="cursor-pointer absolute right-[0px] top-1/2 transform -translate-y-1/2 z-10 p-2 bg-white border rounded-full shadow transition-colors duration-300 hover:border-blue-500 hover:text-blue-500 active:scale-95 active:ring active:ring-blue-300"
-            >
-              <BiChevronRight size={24} />
-            </button>
-          )}
+              <img src="/professors/limjea.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+            <a href="/iater/professors#oh" className="mb-8">
+
+              <img src="/professors/Oh hyun.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+            <a href="/iater/professors#ryu" className="mb-8">
+
+              <img src="/professors/RYU.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+            <a href="/iater/professors#sangsik" className="mb-8">
+
+              <img src="/professors/Lee sang.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+            <a href="/iater/professors#choi" className="mb-8">
+
+              <img src="/professors/Choi nak.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+          </div>
         </div>
 
+        <div className="flex items-start justify-between mb-6 ">
+           <div className="w-1/3 flex items-center gap-4">
+            <img src="/icon/Solid/PNG/save_.png" alt=""  className="w-[100px] h-auto object-cover rounded-xl"/>
+           <h1 className="text-4xl font-bold text-[#105691]">Human Resource & Finance</h1>
+          </div>
+          <div className="w-full justify-around flex ">
+            <a href="/iater/humanresource#yu">
+
+              <img src="/professors/Jaesil YU.png" alt=" professor leejong" className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+            <a href="/iater/humanresource#seangta">
+
+              <img src="/professors/Seangta PHILAVONG.png" alt=" professor " className="w-[350px] h-auto object-cover rounded-xl" />
+            </a>
+          </div>
+        </div>
       </div>
 
 

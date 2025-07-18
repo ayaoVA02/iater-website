@@ -5,8 +5,7 @@ const Logo = () => {
   return (
     <>
     <Link to="/iater">
-
-        <img src={logo2} alt="logo" className="w-auto h-16 object-cover" />
+        <img src='/webimage/LOGO.png' alt="logo" className="w-auto h-auto object-cover" />
     </Link>
 
 
