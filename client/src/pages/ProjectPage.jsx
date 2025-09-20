@@ -4,34 +4,26 @@ import { useTranslation } from "react-i18next"
 import Logo from "../components/Logo"
 import LanguageSelector from "../components/LanguageSelector"
 import { usePosts } from "../hook/usePosts"
+import BlogPostModal from "./BlogPostDetail"
+import { BiCalendar } from "react-icons/bi"
+import { BsEye } from "react-icons/bs"
 
 const ProjectPage = () => {
   const location = useLocation()
-  const [activeTab, setActiveTab] = useState("EXTERNAL")
   const { data: posts, isLoading, error } = usePosts()
   const { t, i18n } = useTranslation()
+  const [selectedPost, setSelectedPost] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-
-  // Hash -> tab id map
-  const hashToTabId = {
-    "#external": "EXTERNAL",
-    "#internal": "INTERNAL_ACTIVITY",
-    "#research": "RESEARCH",
+  const handlePostClick = (post) => {
+    setSelectedPost(post)
+    setIsModalOpen(true)
   }
 
-  // Handle initial tab from hash
-  useEffect(() => {
-    if (location.hash && hashToTabId[location.hash.toLowerCase()]) {
-      setActiveTab(hashToTabId[location.hash.toLowerCase()])
-    }
-  }, [location.hash])
-
-
-  const tabs = [
-    { id: "EXTERNAL", name: t("home.projectMenuItems1"), color: "bg-blue-500" },
-    { id: "INTERNAL_ACTIVITY", name: t("home.projectMenuItems2"), color: "bg-orange-500" },
-    { id: "RESEARCH", name: t("home.projectMenuItems3"), color: "bg-green-500" },
-  ]
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedPost(null)
+  }
 
   const fontClass = {
     en: "font-en",
@@ -46,7 +38,7 @@ const ProjectPage = () => {
   }
 
   // Filter posts based on current tab
-  const filteredPosts = (posts || []).filter(post => post.types === activeTab)
+  const filteredPosts = (posts || [])
 
   if (isLoading) return <p>Loading...</p>
   if (error) return <p>Error loading posts</p>
@@ -54,31 +46,6 @@ const ProjectPage = () => {
   return (
     <div className={`bg-white ${fontClass}`}>
       <div className="container mx-auto px-4  py-6 w-[1224px]">
-        <div className="flex justify-between items-center mb-8">
-          <Logo />
-          <LanguageSelector />
-        </div>
-
-        <h1 className="text-center text-xl mb-6">{t("home.project_subtitle")}</h1>
-
-        <div className="flex mb-6 space-x-4">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                className={`transition-all duration-300 ease-in-out cursor-pointer text-white rounded 
-          ${tab.color} 
-          ${isActive ? "py-2 px-4 text-base  fill-indigo-500 drop-shadow-lg drop-shadow-indigo-500/50 " : "py-2 px-4 text-base "}
-        `}
-                onClick={() => setActiveTab(tab.id)}
-              >
-                {tab.name}
-              </button>
-            );
-          })}
-        </div>
-
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {filteredPosts.map((post) => {
@@ -86,34 +53,64 @@ const ProjectPage = () => {
             const imageUrl = imageExists ? `/uploads/${post.images}` : null;
 
             return (
-              <Link to={`/iater/projectDetail/${post.id}`} key={post.id}>
-                <div className="group rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow">
-                  <div className="overflow-hidden">
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt={post.title}
-                        className="w-full h-48 object-cover transform transition-transform duration-300 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
-                        No Image
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold mb-2 hover:text-blue-500">{post.title}</h3>
-                    <div className="flex justify-between text-xs text-gray-500 mb-2">
-                      <span>{formatDate(post.createdAt)}</span>
-                      <span>👁 {post.viewer || 0}</span>
-                    </div>
-                    <p className="text-sm line-clamp-3 whitespace-pre-wrap">{post.content}</p>
+              <div
+                key={post.id}
+                onClick={() => handlePostClick(post)}
+                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2"
+              >
+                {/* Image */}
+                <div className="overflow-hidden relative">
+                  <img
+                    src={imageUrl}
+                    alt={post.title}
+                    className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-800 rounded-full text-xs font-semibold capitalize">
+                      {post.types}
+                    </span>
                   </div>
                 </div>
-              </Link>
-            );
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {post.title}
+                  </h3>
+
+                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div className="flex items-center">
+                      <BiCalendar size={16} className="mr-1" />
+                      <span>{formatDate(post.createdAt)}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <BsEye size={16} className="mr-1" />
+                      <span>{post.viewer || 0}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-600 line-clamp-3 leading-relaxed">
+                    {post.content.replace(/h2 (.*?) h2/g, '').substring(0, 120)}...
+                  </p>
+
+                  <div className="mt-4 flex items-center text-blue-600 font-medium text-sm group-hover:text-blue-700 transition-colors">
+                    Read more
+                    <svg className="ml-2 w-4 h-4 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            )
           })}
         </div>
+
+        <BlogPostModal
+          post={selectedPost}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          allPosts={posts}
+        />
       </div>
     </div>
   )

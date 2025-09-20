@@ -36,7 +36,7 @@ function Onboard() {
 
                         <FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0} className='flex items-center justify-center flex-col '>
                             {/* <img src={logo2} alt="iater" /> */}
-                            <img src="/webimage/biglogo.png" alt="iATER Logo" />
+                            <img src="/webimage/biglogo.png" alt="iATER Logo" className='w-[80%] h-auto' />
                             {/* Anything placed inside this container will be fade into view */}
 
 

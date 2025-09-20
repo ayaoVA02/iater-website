@@ -21,7 +21,7 @@ const HomePage = () => {
     { name: `${t("home.aboutMenuItems2")}`, link: "/iater/about#mission" },
     { name: `${t("home.aboutMenuItems3")}`, link: "/iater/about#mission-statement" },
     { name: `${t("home.aboutMenuItems4")}`, link: "/iater/about#organization" },
-    { name: `${t("home.aboutMenuItems5")}`, link: "/iater/people" },
+    { name: `${t("home.aboutMenuItems5")}`, link: "/iater/professors" },
     { name: `${t("home.aboutMenuItems6")}`, link: "/iater/history" },
     { name: `${t("home.aboutMenuItems7")}`, link: "/iater/about#logo" },
   ]
@@ -33,10 +33,10 @@ const HomePage = () => {
   ]
 
   const programMenuItems = [
-    { name: `${t("home.programMenuItems1")}`, link: "/iater/program#plan" },
-    { name: `${t("home.programMenuItems2")}`, link: "/iater/program#curriculum" },
-    { name: `${t("home.programMenuItems3")}`, link: "/iater/program#partnerships" },
-    { name: `${t("home.programMenuItems4")}`, link: "/iater/program#mission" },
+    { name: `${t("home.programMenuItems1")}`, link: "/iater/program?slide=0" },
+    { name: `${t("home.programMenuItems2")}`, link: "/iater/program?slide=1" },
+    { name: `${t("home.programMenuItems3")}`, link: "/iater/program?slide=2" },
+    { name: `${t("home.programMenuItems4")}`, link: "/iater/program?slide=3" },
   ]
 
   // Map language to font class
@@ -52,17 +52,17 @@ const HomePage = () => {
 
 
     <div className={`bg-white ${fontClass} ${getContentWidth()} mx-auto mt-12`}>
-      <div className={` ${deviceType === 'mobile' ? ' h-[900px] mx-auto ' : 'h-[500px] '}  flex justify-between items-center mb-12`}>
-        <div className={`${deviceType === 'mobile' ? 'flex-col space-y-2' : 'flex space-x-2'}  `}>
-          
-      <IntroductBox
-        title={t("home.title")}
-        color="blue"
-        link="/about"
-        subtitle={t("home.intoduc_subtitle")}
-        menuItems={aboutMenuItems}
-        // isActive={activeBox === 'about'}
-      />
+      <div className={` ${deviceType === 'mobile' ? ' h-[1100px] mx-auto ' : 'h-[500px] '}  flex justify-between items-center mb-12`}>
+        <div className={`${deviceType === 'mobile' ? 'flex-col space-y-2 mx-auto' : 'flex space-x-2'}  `}>
+
+          <IntroductBox
+            title={t("home.title")}
+            color="blue"
+            link="/about"
+            subtitle={t("home.intoduc_subtitle")}
+            menuItems={aboutMenuItems}
+          // isActive={activeBox === 'about'}
+          />
           <ProjectBox
             title={t("home.project")}
             color="orange"
@@ -83,6 +83,7 @@ const HomePage = () => {
 
 
       </div>
+
 
       {/* <Banner /> */}
 

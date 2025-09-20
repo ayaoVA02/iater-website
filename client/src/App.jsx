@@ -4,10 +4,9 @@ import HomePage from "./pages/HomePage"
 import AboutPage from "./pages/AboutPage"
 import ProjectPage from "./pages/ProjectPage"
 import ProgramPage from "./pages/ProgramPage"
-import PeoplePage from "./pages/PeoplePage"
 import HistoryPage from "./pages/HistoryPage"
 import AIEducationTabs from "./pages/AIEducationTabs"
-import BlogPostDetail from "./pages/BlogPostDetail"
+
 
 
 // dashboard manages import
@@ -27,9 +26,8 @@ import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./context/ProtectedRoute"
 import EditPost from "./dashboard/components/form/form-elements/EditPost"
 import Onboard from "./pages/Onboard"
-import ViewAdvisor from "./pages/ViewAdvisor"
-import ViewProfessor from "./pages/ViewProfessor"
-import HumanReource from "./pages/HumanReource"
+
+import Professors from "./pages/Professors"
 function App() {
   return (
     <AuthProvider>
@@ -42,19 +40,16 @@ function App() {
             <Route path="about" element={<AboutPage />} />
             <Route path="project" element={<ProjectPage />} />
             <Route path="program" element={<ProgramPage />} />
-            <Route path="people" element={<PeoplePage />} />
-            <Route path="advisor" element={<ViewAdvisor />} />
-            <Route path="professors" element={<ViewProfessor />} />
-            <Route path="humanresource" element={<HumanReource />} />
+            <Route path="professors" element={<Professors />} />
+
             <Route path="history" element={<HistoryPage />} />
             <Route path="aieducation" element={<AIEducationTabs />} />
-            <Route path="projectDetail/:id" element={<BlogPostDetail />} />
+
           </Route>
 
           {/* Dashboard */}
 
           <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-
             <Route index path="/dashboard" element={<Home />} />
 
             {/* Others Page */}

@@ -17,7 +17,7 @@ const ProgrameBox = ({ title, color, link, subtitle, menuItems }) => {
 
   return (
     <div
-      className={`relative overflow-hidden transition-transform duration-500 ease-in-out ${isMobile ? "w-full" : "w-[390px] h-[390px]"
+      className={`relative overflow-hidden transition-transform duration-500 ease-in-out ${isMobile ? "w-[390px] h-[390px] mx-auto" : "w-[390px] h-[390px]"
         } ${isActive && !isMobile ? "scale-125 z-20" : ""}`}
       onMouseEnter={() => {
         setIsHovered(true);
@@ -29,35 +29,55 @@ const ProgrameBox = ({ title, color, link, subtitle, menuItems }) => {
         backgroundSize: "contain",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        width: isMobile ? "360px" : "390px",
       }}
     >
       <div className="relative w-full h-full p-6 flex flex-col justify-center items-start">
-        {isActive ? (
-          <div>
+
+        {isMobile ? (
+          <>
+            <div>
             <h2 className="text-3xl font-bold text-white mb-6 ml-4 transition-transform duration-500 ease-in-out">
               iATER에는 <br />
               배움이 있습니다
             </h2>
           </div>
-        ) : (
-          <div>
-            <h2 className="text-5xl font-bold text-white mb-2 ml-6 transition-transform duration-500 ease-in-out">
-              {title}
-            </h2>
-          </div>
-        )}
+            <ul className="text-white space-y-2 pl-24">
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  <Link to={item.link} className="hover:underline">
+                    {index + 1}. {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) :
+          (
+            isActive && menuItems ? (
+              <>
+                <div>
+                  <h2 className="text-3xl font-bold text-white mb-4 ml-4">
+                    안녕하세요 <br />iATER를 소개합니다
+                  </h2>
+                </div>
 
-        {isActive && menuItems && (
-          <ul className="text-white space-y-2 pl-12">
-            {menuItems.map((item, index) => (
-              <li key={index}>
-                <Link to={item.link} className="hover:underline">
-                  {index + 1}. {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+                <ul className="text-white space-y-2 pl-24">
+                  {menuItems.map((item, index) => (
+                    <li key={index}>
+                      <Link to={item.link} className="hover:underline">
+                        {index + 1}. {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <h1 className="absolute top-1/2 right-4 transform -translate-x-1/5 -translate-y-1/2 text-white text-5xl font-bold">
+                {title}
+              </h1>
+            )
+          )}
       </div>
     </div>
   );

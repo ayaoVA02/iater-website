@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao&family=Noto+Sans+KR&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+Lao:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
 .font-lao {
   font-family: 'Noto Sans Lao', sans-serif;
@@ -14,7 +15,7 @@
   font-family: 'Roboto', sans-serif;
 }
 .bold{
-  font-weight: bold;
+  font-weight: 500; 
 }
 p{
   font-size: 18px;
@@ -36,9 +37,9 @@ p{
 .footer-bg{
   background-image: url('/webimage/footer_bg.png');
   background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
+  background-size: contain;
+  /* width: 100%;
+  height: 100%; */
 }
 body {
   margin: 0;

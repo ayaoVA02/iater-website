@@ -7,7 +7,7 @@ import ko from "./locales/ko.json";
 
 
 // ⬇️ Load language from localStorage or default to 'en'
-const savedLanguage = localStorage.getItem("lang") || "en";
+const savedLanguage = localStorage.getItem("lang") || "ko";
 
 i18n.use(initReactI18next).init({
   resources: {
