@@ -1,13 +1,11 @@
 import Logo from "../components/Logo"
-import LanguageSelector from "../components/LanguageSelector"
 import { Keyboard, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AnimatedContent from "../components/ui/AnimatedContent";
 import { useEffect, useRef, useState } from "react";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import useDeviceType from "../hook/useDeviceType";
 import { useTranslation } from "react-i18next";
 import AIResearchTabs from "./AIEducationTabs";

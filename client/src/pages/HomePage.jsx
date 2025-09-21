@@ -1,10 +1,6 @@
-import NavBox from "../components/NavBox"
 import IntroductBox from "../components/IntroductBox"
-import Banner from "../components/Banner"
-import Logo from "../components/Logo"
-import LanguageSelector from "../components/LanguageSelector"
+
 import { useTranslation } from "react-i18next";
-import ResponsiveContainer from "../components/ResponsiveContainer";
 import useDeviceType from "../hook/useDeviceType";
 import ProgrameBox from "../components/ProgrameBox"
 import ProjectBox from "../components/ProjectBox"

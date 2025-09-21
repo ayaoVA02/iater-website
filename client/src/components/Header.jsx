@@ -1,9 +1,7 @@
 import Logo from "./Logo"
-import LanguageSelector from "./LanguageSelector"
 import useDeviceType from "../hook/useDeviceType";
 import ListMenu from "./ListMenu";
 import { useState } from "react";
-import { isMobile } from "react-device-detect";
 
 const Header = () => {
   const deviceType = useDeviceType();

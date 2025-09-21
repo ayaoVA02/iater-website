@@ -1,7 +1,5 @@
-import React from 'react'
 import LanguageSelector from '../components/LanguageSelector'
 
-import { logo2 } from '../assets/images'
 import { useTranslation } from 'react-i18next';
 import FadeContent from '../components/ui/FadeContent';
 import useDeviceType from '../hook/useDeviceType';

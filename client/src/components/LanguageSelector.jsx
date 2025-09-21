@@ -1,4 +1,4 @@
-import { laosFlag, koreanFlag, ukFlag } from '../assets/images';
+import {  koreanFlag } from '../assets/images';
 import { useTranslation } from "react-i18next";
 
 const LanguageSelector = () => {

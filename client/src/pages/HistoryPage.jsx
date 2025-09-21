@@ -1,5 +1,3 @@
-import Logo from "../components/Logo"
-import LanguageSelector from "../components/LanguageSelector"
 import { useTranslation } from "react-i18next";
 import useDeviceType from "../hook/useDeviceType";
 

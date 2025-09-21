@@ -1,6 +1,4 @@
-import React from 'react'
 import useDeviceType from '../hook/useDeviceType';
-import AnimatedContent from '../components/ui/AnimatedContent';
 import { isMobile } from 'react-device-detect';
 
 function Professors() {

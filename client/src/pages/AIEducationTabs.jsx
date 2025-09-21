@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-import { BiBrain, BiUser } from 'react-icons/bi';
+import { BiBrain } from 'react-icons/bi';
 import { CgPullClear } from 'react-icons/cg';
 import useDeviceType from '../hook/useDeviceType';
 import { useSearchParams } from 'react-router-dom';

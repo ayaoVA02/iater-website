@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { BsEye } from 'react-icons/bs';
 import { BiCalendar } from 'react-icons/bi';
 import { FaFacebook } from 'react-icons/fa';

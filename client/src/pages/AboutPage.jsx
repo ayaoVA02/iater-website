@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 
 import { useTranslation, Trans } from "react-i18next";
 import useDeviceType from "../hook/useDeviceType"
-import ListMenu from "../components/ListMenu"
 import { useHoverBox } from "../context/HoverContext"
 const AboutPage = () => {
   const location = useLocation()

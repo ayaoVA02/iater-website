@@ -1,6 +1,5 @@
-import { map } from "../assets/images"
-import Logo from "./Logo"
-import { FaFacebook, FaMailBulk, FaMapMarkerAlt, FaPhone, FaVoicemail } from "react-icons/fa"
+
+import { FaFacebook, FaPhone } from "react-icons/fa"
 import { useTranslation } from "react-i18next";
 import useDeviceType from "../hook/useDeviceType";
 import { isMobile } from "react-device-detect";
