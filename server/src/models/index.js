@@ -10,7 +10,23 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: "mysql",
     port: process.env.DB_PORT,
-  }
+    dialectOptions: {
+      charset: 'utf8'
+    },
+
+    define: {
+      charset: 'utf8',
+      collate: 'utf8_general_ci'
+    },
+    logging: false, // Optional: disable SQL query logging
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  },
+ 
 );
 //connected console
 sequelize

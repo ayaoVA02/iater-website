@@ -14,7 +14,14 @@ const swagger = require("./src/swagger/swagger");
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: ['http://localhost:5173'],
+  // origin: ['http://localhost:5173'],
+
+    origin: [
+    'http://localhost:5173',
+    'https://onlyyao.cafe24.com',
+    'https://iater.cafe24app.com',
+    'http://iater.org'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -28,6 +35,21 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/user", userRoutes);
+
+
+
+// Serve static files
+const distPath = path.join(__dirname, "../dist");
+console.log("Static files path:", distPath);
+app.use(express.static(distPath));
+
+
+// / ✅ FIXED: Use regex instead of "*" for catch-all route
+// This matches all routes that do NOT start with /api
+app.get(/^(?!\/api).*$/, (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
+
 
 // check api health
 app.get("/", (req, res) => {
